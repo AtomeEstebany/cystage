@@ -22,8 +22,10 @@
 <center>
     <h1>Hello CyStage ! </h1><br>
     <p>Trouver votre futur ici</p>
-
-    <OffreDeStage {offre}/>
+    {#each offre as o}
+        
+        <OffreDeStage offre={o}/>
+    {/each}
 
     <style>
         h1 {

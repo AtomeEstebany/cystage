@@ -3,4 +3,5 @@
 
 </script>
 
-    <h1>Hello world</h1>
+    <h1>{offre.nom}<br></h1>
+    <h2>{offre.description}</h2>
