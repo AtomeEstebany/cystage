@@ -7,6 +7,24 @@ Le projet utilise les frameworks suivants:
 - **Svelte**
 - **Laravel**
 
+## Installation et Setup du Framework 
+Pour installer et setup tout les frameworks, voici les commandes: 
+
+```console
+sudo apt install npm
+npm install
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+sudo apt install php-sqlite3
+sudo apt install composer
+composer global require laravel/installer
+nvm install node
+```
+
+Puis dans le **dossier** du projet
+```console
+php artisan config:clear
+php artisan migrate
+```
 ## Prérequis
 
 Pour lancer le projet, vous aurez besoin de 
@@ -14,4 +32,15 @@ Pour lancer le projet, vous aurez besoin de
 - **Nodejs** (>= 20.x)
 - **Composer** 
 
+## Lancer le projet 
+Pour lancer le **front-end**, il faut executer
 
+```console
+composer run dev 
+```
+
+Pour lancer le **back-end**, il faut executer dans le dossier du projet 
+
+```console
+php artisan serve
+```
