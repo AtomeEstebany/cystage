@@ -1,5 +1,6 @@
 <script lang="ts">
     import AppHead from '@/components/AppHead.svelte';
+    import { createInertiaApp } from '@inertiajs/svelte';
     import OffreDeStage from './OffreDeStage.svelte';
 
     let { offre }= $props();
