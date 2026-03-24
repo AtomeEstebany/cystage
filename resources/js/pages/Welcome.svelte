@@ -5,6 +5,18 @@
 
     let { offre }= $props();
 
+    let ListePhraseInspirante = ["Trouver votre futur ici",
+        "Débutez votre carrière profesionnel!",
+        "Votre futur commence aujourd'hui",
+        "L'avenir est entre vos mains",
+        "Reprenez votre destin en main",
+        "Découvrez le monde profesionnel!",
+        "N'arrêtez jamais d'apprendre!",
+        "Construisons la génération de demain!",
+    ]
+
+    const phraseInspirante = ListePhraseInspirante[Math.floor(Math.random() * ListePhraseInspirante.length)];
+
 
 </script>
 
@@ -21,7 +33,8 @@
 
 <center>
     <h1>Hello CyStage ! </h1><br>
-    <p>Trouver votre futur ici</p>
+    <p>{phraseInspirante}</p>
+    <br>
     {#each offre as o}
         
         <OffreDeStage offre={o}/>
