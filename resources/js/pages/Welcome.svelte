@@ -3,6 +3,8 @@
     import { createInertiaApp } from '@inertiajs/svelte';
     import OffreDeStage from './OffreDeStage.svelte';
 
+    import logo from './img/logo.png';
+
     let { offre }= $props();
 
     let ListePhraseInspirante = ["Trouvez votre futur ici",
@@ -32,7 +34,7 @@
 </header>
 
 <center>
-    <h1>Hello CyStage ! </h1><br>
+    <img src={logo} alt="Le logo Cystage" width="300em">
     <p>{phraseInspirante}</p>
     <br>
     {#each offre as o}
