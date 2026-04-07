@@ -1,16 +1,16 @@
 <script lang="ts">
-    let { offre }= $props();
+    let { offre = $bindable() }= $props();
 
 </script>
     <div>
 
         <h1>{offre.nom}<br></h1>
+        <h1>{offre.entreprise}<br></h1>
+        <h2>{offre.adresse}</h2>
         <br>
+        <h1>{offre.description}<br></h1>
         <br>
-        <br>
-        <br>
-        <br>
-        <h2>{offre.description}</h2>
+
     </div>
 
     <style>
