@@ -6,7 +6,7 @@
 
     import logo from './img/logo.png';
 
-    let { offre }= $props();
+    let { offres }= $props();
 
     let showModal= $state(false);
 
@@ -53,7 +53,7 @@
     <img src={logo} alt="Le logo Cystage" width="300em">
     <p>{phraseInspirante}</p>
     <br>
-    {#each offre as o}
+    {#each offres as o}
         
         <OffreDeStage offre={o}/>
     {/each}

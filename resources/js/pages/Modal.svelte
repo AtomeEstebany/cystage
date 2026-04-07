@@ -1,8 +1,21 @@
 <script lang="ts">
+    import { useForm } from '@inertiajs/svelte';
+
     let { showModal = $bindable() } = $props();
     function disable_modal() {
         showModal=!showModal;
         console.log(showModal);
+    }
+    //'nom','entreprise','adresse','description'
+    const form = useForm({ nom: '',entreprise: '', adresse: '',description:''});
+
+    function submit(e) {
+        e.preventDefault();
+        $form.post('/offre', { 
+        preserveState: true, 
+        onSuccess: () => {$form.reset();showModal = false; }
+    });
+
     }
 </script>
 
@@ -17,15 +30,41 @@
         </div>
 
         <br><br>
-        <form action="?">
+        <form onsubmit={submit}>
             <label for="Nom de l'offre">Nom de l'offre
                 <br>
-                <input type="text" name="text" id="">
+                <input bind:value={$form.nom} type="text" name="text" id="">
+                {#if $form.errors.nom}
+                                    <br>
+                    <span class="erreur">{$form.errors.nom}</span>
+                {/if}
+            </label>
+            <br>
+            <label for="Entreprise">Entreprise
+                <br>
+                <input bind:value={$form.entreprise} type="text" name="text" id="">
+                {#if $form.errors.entreprise}
+                    <br>
+                    <span class="erreur">{$form.errors.entreprise}</span>
+                {/if}
+            </label>
+            <br>
+            <label for="Adresse">Adresse
+                <br>
+                <input bind:value={$form.adresse} type="text" name="text" id="">
+                {#if $form.errors.adresse}
+                                    <br>
+                    <span class="erreur">{$form.errors.adresse}</span>
+                {/if}
             </label>
             <br>
             <label for="Description">Description de l'offre
                 <br>
-                <input type="text" name="text" id="">
+                <input bind:value={$form.description} type="text" name="text" id="">
+                {#if $form.errors.description}
+                                    <br>
+                    <span class="erreur">{$form.errors.description}</span>
+                {/if}
             </label>
             <br>
 
@@ -96,6 +135,11 @@
         33% { transform: rotate(-5deg);}
         66% { transform: rotate(5deg);}
         100% { transform: rotate(0deg);}
+    }
+
+    span.erreur {
+        color:red;
+        font-size: 0.8em;
     }
 
 

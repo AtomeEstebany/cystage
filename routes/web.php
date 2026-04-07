@@ -7,8 +7,8 @@ use App\Models\Offre;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'offre' => Offre::latest()->get() 
+        'offres' => Offre::latest()->get() 
     ]);
 })->name('home');
 
-Route::post('/offre', [PosteController::class, 'offre'])->name('links.offre');
+Route::post('/offre', [OffreController::class, 'poste'])->name('links.offre');
