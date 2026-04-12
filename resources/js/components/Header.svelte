@@ -1,7 +1,15 @@
 <script lang="ts">
-    import { inertia } from '@inertiajs/svelte';
+    import { inertia, page } from '@inertiajs/svelte';
+    import { useForm } from '@inertiajs/svelte';
 
     let { showModal = $bindable(false), showLogin = $bindable(false) } = $props();
+    
+    const logoutForm = useForm({});
+    function logout() {
+        $logoutForm.post('/logout');
+    }
+
+    let user = $derived($page.props.auth?.user);
 </script>
 
 <header>
@@ -10,10 +18,14 @@
         <a use:inertia href="/" class="header-logo-text">CyStage</a>
     </div>
     <div class="header-right">
-        <button class="btn-secondary" onclick={() => showModal = !showModal}>Publier une offre</button>
-        <a use:inertia class="btn-ghost" href="/profil">Mon profil</a>
-        <a use:inertia class="btn-ghost" href="/register">Créer un compte</a>
-        <button class="btn-primary" onclick={() => showLogin = !showLogin}>Connexion</button>
+        {#if user}
+            <button class="btn-secondary" onclick={() => showModal = !showModal}>Publier une offre</button>
+            <a use:inertia class="btn-ghost" href="/profil">Mon profil</a>
+            <button class="btn-primary" onclick={logout}>Déconnexion</button>
+        {:else}
+            <a use:inertia class="btn-ghost" href="/register">Créer un compte</a>
+            <button class="btn-primary" onclick={() => showLogin = !showLogin}>Connexion</button>
+        {/if}
     </div>
 </header>
 

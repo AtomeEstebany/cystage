@@ -22,7 +22,7 @@
         <button class="close" onclick={disable_login}>✕</button>
 
         <h1 class="titre">
-            <img class="img-profil" src="https://static.vecteezy.com/system/resources/thumbnails/019/879/186/small_2x/user-icon-on-transparent-background-free-png.png" alt="Logo photo profil">
+            <img class="img-profil" src="https://static.vecteezy.com/system/resources/thumbnails/019/879/186/small_2x/user-icon-on-transparent-background-free-png.png" alt="Logo profil">
             <span>Connectez-vous</span>
         </h1>
 

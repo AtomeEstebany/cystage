@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OffreController;
+use App\Http\Controllers\AuthController;
 use Inertia\Inertia;
 use App\Models\Offre;
 use Illuminate\Http\Request;
@@ -36,4 +37,7 @@ Route::get('/profil', function (Request $request) {
 Route::redirect('/progil', '/profil');
 
 Route::get('/register', fn() => inertia('Register'))->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
