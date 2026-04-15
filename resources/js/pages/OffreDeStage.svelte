@@ -17,7 +17,7 @@
         <br>
         <h1>{offre.profil_desc}<br></h1>
         <br>
-        <p>Pour plus d'information, contacter ou appeler le {entreprise.num_tel}<p>
+        <p>Pour plus d'information, appeler le {entreprise.num_tel}<p>
         <br>
         {#each skills as s}
             <p>{s.name}</p>
