@@ -8,7 +8,7 @@
 
     import logo from './img/logo.png';
 
-    let { entreprises, offres, competences, domaines, links_offres_competences, links_offres_domaines }= $props();
+    let { entreprises, offres, competences, domaines=$bindable(), links_offres_competences, links_offres_domaines }= $props();
 
     let showModal= $state(false);
     let showLogin= $state(false);
@@ -71,9 +71,6 @@
         <img src={logo} alt="Le logo Cystage" width="260">
         <p class="phrase">{phraseInspirante}</p>
     </div>
-    {#each getdoms(offres[0],links_offres_domaines,domaines) as d}
-        {d.name}
-    {/each}
     <div class="offres-list">
         {#each offres as o}
             <OffreDeStage offre={o} entreprise={entreprises[o.ent_id-1]} doms={getdoms(o,links_offres_domaines,domaines)} skills={getskills(o,links_offres_competences,competences)}/>
@@ -82,7 +79,7 @@
 </main>
 
 {#if showModal}
-    <Modal bind:showModal={showModal}/>
+    <Modal bind:showModal={showModal} bind:domaines={domaines} bind:competences={competences} bind:entreprises={entreprises}/>
 {/if}
 
 {#if showLogin}

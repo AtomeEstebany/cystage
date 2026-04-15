@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Offre_Domaine extends Model
 {
-    protected $fillable = ['offre_id','domaine_id'];
+    protected $fillable = ['offre_id','dom_id'];
 }

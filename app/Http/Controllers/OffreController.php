@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Link;
 use Inertia\Inertia;
+use App\Models\Offre_Competence;
+use App\Models\Offre_Domaine;
 
 class OffreController extends Controller
 {
@@ -23,6 +25,8 @@ class OffreController extends Controller
             'teletrav' => 'required|boolean',
             'poste_desc' => 'required|string',
             'profil_desc' => 'required|string',
+            'domaines' => 'required|array|min:1',
+            'competences' => 'required|array|min:1',
         ]);
 
         \App\Models\Offre::create([
@@ -35,6 +39,21 @@ class OffreController extends Controller
             'poste_desc' => $request->poste_desc,
             'profil_desc' => $request->profil_desc
         ]);
+
+        $latestoffer = \App\Models\Offre::latest()->first();
+        foreach ($request->domaines as $d){
+            \App\Models\Offre_Domaine::create([
+                'offre_id' => $latestoffer->id,
+                'dom_id' => $d
+            ]);
+        }
+
+        foreach ($request->competences as $c){
+            \App\Models\Offre_Competence::create([
+                'offre_id' => $latestoffer->id,
+                'skill_id' => $c
+            ]);
+        }
 
         return back()->with('success','Code partagé avec succès');
     }
