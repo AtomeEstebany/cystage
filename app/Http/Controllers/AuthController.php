@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Etudiant;
+use App\Models\Entreprise;
 
 class AuthController extends Controller
 {
@@ -29,22 +31,66 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'nom'                  => 'required|string|max:255',
-            'prenom'               => 'required|string|max:255',
-            'email'                => 'required|email|unique:users,email',
-            'password'             => 'required|min:8|confirmed',
-            'num_tel'              => 'required|string',
-            'adresse'              => 'required|string',
-            'date_de_naissance'    => 'required|date',
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'password' => 'required|min:8|confirmed',
+            'num_etudiant' => 'required|min:8|max:8',
         ]);
 
         $user = User::create([
-            'name'           => $validated['prenom'] . ' ' . $validated['nom'],
-            'email'          => $validated['email'],
-            'password'       => Hash::make($validated['password']),
-            'numero_tel'     => $validated['num_tel'], 
-            'adresse'        => $validated['adresse'],
-            'date_naissance' => $validated['date_de_naissance'], 
+            'name' => 'e-'.$validated['prenom'][0].$validated['nom'],
+            'email' => $validated['prenom'].'.'.$validated['nom'].'@etu.test',
+            'password' => Hash::make($validated['password']),
+            'role_id' => 3
+        ]);
+
+        $latestuser = \App\Models\User::latest()->first();
+
+        Etudiant::create([
+            'nom' => $validated['nom'],
+            'prenom' => $validated['prenom'],
+            'user_id' => $latestuser->id,
+            'num_etudiant' => $validated['num_etudiant']
+        ]);
+
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect('/');
+    }
+
+    public function newent(Request $request)
+    {
+
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255',
+            'siret' => 'required|string|max:255',
+            'adresse' => 'required|string|max:255',
+            'code_postal' => 'required|string|max:255',
+            'ville' => 'required|string|max:255',
+            'pays' => 'required|string|max:255',
+            'password' => 'required|min:8|confirmed',
+            'num_tel' => 'required|digits:10',
+        ]);
+
+        $user = User::create([
+            'name' => 'ent-'.$validated['nom'],
+            'email' => $validated['nom'].'@ent.test',
+            'password' => Hash::make($validated['password']),
+            'role_id' => 2
+        ]);
+
+        $latestuser = \App\Models\User::latest()->first();
+
+        Entreprise::create([
+            'nom' => $validated['nom'],
+            'siret' => $validated['siret'],
+            'adresse' => $validated['adresse'],
+            'code_postal' => $validated['code_postal'],
+            'ville' => $validated['ville'],
+            'pays' => $validated['pays'],
+            'user_id' => $latestuser->id,
+            'num_tel' => $validated['num_tel']
         ]);
 
         Auth::login($user);

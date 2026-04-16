@@ -3,29 +3,44 @@
     import AppHead from '@/components/AppHead.svelte';
 
     type Profile = {
-        nom?: string | null;
-        prenom?: string | null;
-        date_naissance?: string | null;
-        numero_tel?: string | null;
-        adresse?: string | null;
-        email?: string | null;
-        num_etudiant?: string | null;
-        annee_etude?: string | null;
+        nom?: string;
+        prenom?: string;
+        email?: string;
+        num_etudiant?: string;
+        identifiant?: string;
+        siret?: string,
+        adresse?: string,
+        code_postal?: string,
+        ville?: string,
+        pays?: string,
+        num_tel?: string,
+        type?: string,
     };
-
     let { profile }: { profile: Profile } = $props();
-
-    const fields = $derived([
-        { label: 'Nom', value: profile?.nom },
-        { label: 'Prénom', value: profile?.prenom },
-        { label: 'Date de naissance', value: profile?.date_naissance },
-        { label: 'Numéro de téléphone', value: profile?.numero_tel },
-        { label: 'Adresse', value: profile?.adresse, full: true },
-        { label: 'Email', value: profile?.email, full: true },
-        { label: 'Numéro étudiant', value: profile?.num_etudiant },
-        { label: "Année d'étude", value: profile?.annee_etude },
-    ]);
-
+    let fields = [];
+    if(profile?.type == '3'){
+        fields = [
+            { label: 'Nom', value: profile?.nom },
+            { label: 'Prénom', value: profile?.prenom },
+            { label: 'Email', value: profile?.email, full: true },
+            { label: 'Numéro étudiant', value: profile?.num_etudiant },
+            { label: 'Indentifiant', value: profile?.identifiant },
+        ];
+    }
+    if(profile?.type == '2'){
+        fields = [
+            { label: 'Appelation', value: profile?.nom },
+            { label: 'Email', value: profile?.email, full: true },
+            { label: 'Indentifiant', value: profile?.identifiant },
+            { label: 'siret', value: profile?.siret },
+            { label: 'adresse', value: profile?.adresse },
+            { label: 'code_postal', value: profile?.code_postal },
+            { label: 'ville', value: profile?.ville },
+            { label: 'pays', value: profile?.pays },
+            { label: 'num_tel', value: profile?.num_tel },
+        ];
+    }
+    
     function getFullName() {
         const prenom = profile?.prenom?.trim() ?? '';
         const nom = profile?.nom?.trim() ?? '';

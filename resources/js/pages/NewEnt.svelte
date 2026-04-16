@@ -6,8 +6,12 @@
 
     const form = useForm({
         nom: '',
-        prenom: '',
-        num_etudiant: '',
+        siret: '',
+        adresse: '',
+        code_postal: '',
+        ville: '',
+        pays: '',
+        num_tel: '',
         password: '',
         password_confirmation: '',
     });
@@ -16,9 +20,13 @@
 
     function validate(): boolean {
         errors = {};
-        if (!$form.nom) errors.nom = "Le nom est obligatoire";
-        if (!$form.prenom) errors.prenom = "Le prénom est obligatoire";
-        if (!$form.num_etudiant) errors.num_etudiant = "Le numéro étudiant est obligatoire";
+        if (!$form.nom) errors.nom = "L'appelation'est obligatoire";
+        if (!$form.siret) errors.prenom = "Le siret est obligatoire";
+        if (!$form.adresse) errors.adresse = "L'adresse est obligatoire";
+        if (!$form.code_postal) errors.code_postal = "Le code postal est obligatoire";
+        if (!$form.ville) errors.ville = "La ville est obligatoire";
+        if (!$form.pays) errors.pays = "Le pays est obligatoire";
+        if (!$form.num_tel) errors.num_tel = "Le numéro de téléphone est obligatoire";
         if (!$form.password) errors.password = "Le mot de passe est obligatoire";
         if (!$form.password_confirmation) errors.password_confirmation = "Veuillez confirmer le mot de passe";
         if ($form.password && $form.password_confirmation && $form.password !== $form.password_confirmation) {
@@ -31,7 +39,7 @@
     function submit(e: Event) {
         e.preventDefault();
         if (!validate()) return;
-        $form.post('/register');
+        $form.post('/newent');
     }
 </script>
 
@@ -52,9 +60,9 @@
         <form id="creation_compte" onsubmit={submit}>
 
             <div class="form-group">
-                <label for="nom">Nom <span class="required">*</span></label>
+                <label for="nom">Appelation <span class="required">*</span></label>
                 <input
-                    type="text" id="nom" placeholder="Nom"
+                    type="text" id="nom" placeholder="Appelation"
                     bind:value={$form.nom}
                     class:input-error={errors.nom || $form.errors.nom}
                 />
@@ -62,24 +70,63 @@
             </div>
 
             <div class="form-group">
-                <label for="prenom">Prénom <span class="required">*</span></label>
+                <label for="siret">Siret <span class="required">*</span></label>
                 <input
-                    type="text" id="prenom" placeholder="Prénom"
-                    bind:value={$form.prenom}
-                    class:input-error={errors.prenom || $form.errors.prenom}
+                    type="text" id="siret" placeholder="Siret"
+                    bind:value={$form.siret}
+                    class:input-error={errors.siret || $form.errors.siret}
                 />
-                <span class="error-message">{errors.prenom || $form.errors.prenom || ''}</span>
+                <span class="error-message">{errors.siret || $form.errors.siret || ''}</span>
             </div>
 
             <div class="form-group">
-                <label for="num_etudiant">Numéro étudiant <span class="required">*</span></label>
+                <label for="adresse">Adresse <span class="required">*</span></label>
                 <input
-                    type="text" id="num_etudiant" placeholder="12345678"
-                    pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
-                    bind:value={$form.num_etudiant}
-                    class:input-error={errors.num_etudiant || $form.errors.num_etudiant}
+                    type="text" id="adresse" placeholder="666 rue du diable"
+                    bind:value={$form.adresse}
+                    class:input-error={errors.adresse || $form.errors.adresse}
                 />
-                <span class="error-message">{errors.num_etudiant || $form.errors.num_etudiant || ''}</span>
+                <span class="error-message">{errors.adresse || $form.errors.adresse || ''}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="code_postal">Code postal <span class="required">*</span></label>
+                <input
+                    type="text" id="code_postal" placeholder="64000"
+                    bind:value={$form.code_postal}
+                    class:input-error={errors.code_postal || $form.errors.code_postal}
+                />
+                <span class="error-message">{errors.code_postal || $form.errors.code_postal || ''}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="ville">Ville <span class="required">*</span></label>
+                <input
+                    type="text" id="ville" placeholder="Pau"
+                    bind:value={$form.ville}
+                    class:input-error={errors.ville || $form.errors.ville}
+                />
+                <span class="error-message">{errors.ville || $form.errors.ville || ''}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="pays">Pays <span class="required">*</span></label>
+                <input
+                    type="text" id="pays" placeholder="France"
+                    bind:value={$form.pays}
+                    class:input-error={errors.pays || $form.errors.pays}
+                />
+                <span class="error-message">{errors.pays || $form.errors.pays || ''}</span>
+            </div>
+
+            <div class="form-group">
+                <label for="num_tel">Numéro de téléphone <span class="required">*</span></label>
+                <input
+                    type="tel" id="num_tel" placeholder="06 06 06 06 06"
+                    bind:value={$form.num_tel}
+                    class:input-error={errors.num_tel || $form.errors.num_tel}
+                />
+                <span class="error-message">{errors.num_tel || $form.errors.num_tel || ''}</span>
             </div>
 
             <div class="form-group form-group-full">

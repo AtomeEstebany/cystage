@@ -1,17 +1,45 @@
 <script lang="ts">
     import Header from '@/components/Header.svelte';  
     import AppHead from '@/components/AppHead.svelte';
-    import { createInertiaApp } from '@inertiajs/svelte';
+    import { createInertiaApp,page } from '@inertiajs/svelte';
     import OffreDeStage from './OffreDeStage.svelte';
     import Modal from './Modal.svelte';
     import Login from './Login.svelte';
 
     import logo from './img/logo.png';
 
-    let { offres }= $props();
+    let { entreprises=$bindable(), offres, competences=$bindable(), domaines=$bindable(), links_offres_competences, links_offres_domaines }= $props();
 
     let showModal= $state(false);
     let showLogin= $state(false);
+
+    function getdoms(o,o_d,d){
+        let doms = $state([]);
+        for(let l of o_d){
+            if(o.id == l.offre_id){
+                doms.push(d[l.dom_id-1]);
+            }
+        }
+        return doms;
+    }
+
+    function getent(o,ents){
+        for(let e of ents){
+            if(o.ent_id == e.id){
+                return e;
+            }
+        }
+    }
+
+    function getskills(o,o_c,c){
+        let skills = $state([]);
+        for(let l of o_c){
+            if(o.id == l.offre_id){
+                skills.push(c[l.skill_id-1]);
+            }
+        }
+        return skills;
+    }
 
     function modal() {
         showModal=!showModal;
@@ -33,6 +61,8 @@
     ]
 
     const phraseInspirante = ListePhraseInspirante[Math.floor(Math.random() * ListePhraseInspirante.length)];
+
+    let user = $derived($page.props.auth?.user);
 </script>
 
 <AppHead title="Welcome">
@@ -50,16 +80,23 @@
         <img src={logo} alt="Le logo Cystage" width="260">
         <p class="phrase">{phraseInspirante}</p>
     </div>
-
+    {#if user}
     <div class="offres-list">
-        {#each offres as o}
-            <OffreDeStage offre={o}/>
-        {/each}
+        {#if user.role_id == 2}
+            {#each offres as o}
+                <OffreDeStage offre={o} entreprise={entreprises} doms={getdoms(o,links_offres_domaines,domaines)} skills={getskills(o,links_offres_competences,competences)}/>
+            {/each}
+        {:else}
+            {#each offres as o}
+                <OffreDeStage offre={o} entreprise={getent(o,entreprises)} doms={getdoms(o,links_offres_domaines,domaines)} skills={getskills(o,links_offres_competences,competences)}/>
+            {/each}
+        {/if}
     </div>
+    {/if}
 </main>
 
 {#if showModal}
-    <Modal bind:showModal={showModal}/>
+    <Modal bind:showModal={showModal} bind:domaines={domaines} bind:competences={competences} bind:entreprises={entreprises} user={user}/>
 {/if}
 
 {#if showLogin}
