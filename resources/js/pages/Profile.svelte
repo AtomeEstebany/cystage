@@ -5,12 +5,8 @@
     type Profile = {
         nom?: string | null;
         prenom?: string | null;
-        date_naissance?: string | null;
-        numero_tel?: string | null;
-        adresse?: string | null;
         email?: string | null;
         num_etudiant?: string | null;
-        annee_etude?: string | null;
     };
 
     let { profile }: { profile: Profile } = $props();
@@ -18,12 +14,8 @@
     const fields = $derived([
         { label: 'Nom', value: profile?.nom },
         { label: 'Prénom', value: profile?.prenom },
-        { label: 'Date de naissance', value: profile?.date_naissance },
-        { label: 'Numéro de téléphone', value: profile?.numero_tel },
-        { label: 'Adresse', value: profile?.adresse, full: true },
         { label: 'Email', value: profile?.email, full: true },
         { label: 'Numéro étudiant', value: profile?.num_etudiant },
-        { label: "Année d'étude", value: profile?.annee_etude },
     ]);
 
     function getFullName() {
