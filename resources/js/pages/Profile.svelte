@@ -1,7 +1,7 @@
 <script lang="ts">
     import Header from '@/components/Header.svelte';
     import AppHead from '@/components/AppHead.svelte';
-
+    
     type Profile = {
         nom?: string;
         prenom?: string;

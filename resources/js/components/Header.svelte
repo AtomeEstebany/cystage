@@ -19,8 +19,12 @@
     </div>
     <div class="header-right">
         {#if user}
-            <button class="btn-secondary" onclick={() => showModal = !showModal}>Publier une offre</button>
-            <a use:inertia class="btn-ghost" href="/profil">Mon profil</a>
+            {#if user.role_id==3}
+                <a use:inertia class="btn-ghost" href="/profil">Mon profil</a>
+            {/if}
+            {#if user.role_id==2 || user.role_id==1}
+                <button class="btn-secondary" onclick={() => showModal = !showModal}>Publier une offre</button>
+            {/if}
             <button class="btn-primary" onclick={logout}>Déconnexion</button>
         {:else}
             <a use:inertia class="btn-ghost" href="/register">Créer un compte</a>
