@@ -1,6 +1,6 @@
 <script lang="ts">
     import { useForm } from '@inertiajs/svelte';
-    let { showModal = $bindable(), entreprises = $bindable(), competences = $bindable(), domaines = $bindable() } = $props();
+    let { showModal = $bindable(), entreprises = $bindable(), competences = $bindable(), domaines = $bindable(), user } = $props();
     function disable_modal() {
         showModal=!showModal;
         console.log(showModal);
@@ -15,6 +15,9 @@
         });
     }
     $form.teletrav = false;
+    if(user.role_id == 2){
+        $form.ent_id = entreprises.id;
+    }
 </script>
 
 <div class="overlay">
@@ -30,15 +33,15 @@
                 <input bind:value={$form.nom} type="text" id="nom" placeholder="Ex: Stage développeur web"/>
                 {#if $form.errors.nom}<span class="erreur">{$form.errors.nom}</span>{/if}
             </div>
-
+            {#if user.role_id == 1}
             <div class="field">
                 <label>Entreprise</label>
                 {#each entreprises as e}
                     <label><input id="{e.nom}" type="radio" bind:group={$form.ent_id} value="{e.id}"> {e.nom}</label>
                 {/each}
                 {#if $form.errors.ent_id}<span class="erreur">{$form.errors.ent_id}</span>{/if}
-            </div>
-
+            </div>$
+            {/if}
             <div class="field">
                 <label>Domaines</label>
                 {#each domaines as d}

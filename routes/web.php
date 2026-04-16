@@ -21,15 +21,38 @@ use Illuminate\Http\Request;
 Route::get('/', function (Request $request) {
     if ($request->user()) {
         $user = $request->user();
-        return Inertia::render('Welcome', [
-            'offres' => Offre::latest()->get(),
-            'competences' => Competence::latest()->get(),
-            'domaines' => Domaine::latest()->get(),
-            'links_offres_competences' => Offre_Competence::latest()->get(),
-            'links_offres_domaines' => Offre_Domaine::latest()->get(),
-            'entreprises' => Entreprise::latest()->get(),
-            'etudiant' => Etudiant::where('user_id',$user->id)->get(),
-        ]);
+        if($user->role_id==3){
+            return Inertia::render('Welcome', [
+                'offres' => Offre::latest()->get(),
+                'competences' => Competence::latest()->get(),
+                'domaines' => Domaine::latest()->get(),
+                'links_offres_competences' => Offre_Competence::latest()->get(),
+                'links_offres_domaines' => Offre_Domaine::latest()->get(),
+                'entreprises' => Entreprise::latest()->get(),
+                'etudiant' => Etudiant::where('user_id',$user->id)->get(),
+            ]);
+        }
+        if($user->role_id==2){
+            $ent = Entreprise::where('user_id',$user->id)->first();
+            return Inertia::render('Welcome', [
+                'entreprises' => $ent,
+                'offres' => Offre::where('ent_id',$ent->id)->latest()->get(),
+                'competences' => Competence::latest()->get(),
+                'domaines' => Domaine::latest()->get(),
+                'links_offres_competences' => Offre_Competence::latest()->get(),
+                'links_offres_domaines' => Offre_Domaine::latest()->get(),
+            ]);
+        }
+        if($user->role_id==1){
+            return Inertia::render('Welcome', [
+                'offres' => Offre::latest()->get(),
+                'competences' => Competence::latest()->get(),
+                'domaines' => Domaine::latest()->get(),
+                'links_offres_competences' => Offre_Competence::latest()->get(),
+                'links_offres_domaines' => Offre_Domaine::latest()->get(),
+                'entreprises' => Entreprise::latest()->get(),
+            ]);
+        }
     }else{
         return Inertia::render('Welcome', [
             'offres' => Offre::latest()->get(),
