@@ -27,24 +27,25 @@
          </div>
        </header>
        <hr>
-       <h2>Information utile: <br></h2>
+       <h2>Informations utiles: <br></h2>
             <p>Durée de travail : {offre.nb_week} semaines</p>
-            <p>par semaine: {offre.week_hour}h payé {offre.paye_hour} € </p>
+            <p>par semaine: {offre.week_hour}h payées {offre.paye_hour} € </p>
             <p>Télétravail: {#if offre.teletrav}✅{:else}❌{/if}</p>
        <br>
 
-        <p>Tache: {offre.poste_desc}<br></p>
+        <p>Tâches: {offre.poste_desc}<br></p>
         <br>
-        <p>Qualité requise: {offre.profil_desc}<br></p>
+        <p>Qualités requises: {offre.profil_desc}<br></p>
         <br>
         <p>Pour plus d'information, appeler le {entreprise.num_tel}<p>
         <br>
+        <p>Compétences demandées :<p>
         <p> {#each skills as s}
             {s.name}&nbsp;
         {/each}</p>
         <br>
         {#each doms as d}
-            <p>{d.name}</p>
+            <p>#{d.name}</p>
         {/each}
 
         {#if user.id ==3}
