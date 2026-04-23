@@ -9,7 +9,7 @@
     import logo from './img/logo.png';
     import Unconnect from './Unconnect.svelte';
 
-    let { entreprises=$bindable(), offres, competences=$bindable(), domaines=$bindable(), links_offres_competences, links_offres_domaines }= $props();
+    let { entreprises=$bindable(), offres, competences=$bindable(), domaines=$bindable(), links_offres_competences, links_offres_domaines, etudiant=$bindable() }= $props();
 
     let showModal= $state(false);
     let showLogin= $state(false);
@@ -89,7 +89,7 @@
             {/each}
         {:else}
             {#each offres as o}
-                <OffreDeStage offre={o} entreprise={getent(o,entreprises)} doms={getdoms(o,links_offres_domaines,domaines)} skills={getskills(o,links_offres_competences,competences)}/>
+                <OffreDeStage  etudiant={etudiant} offre={o} entreprise={getent(o,entreprises)} doms={getdoms(o,links_offres_domaines,domaines)} skills={getskills(o,links_offres_competences,competences)}/>
             {/each}
         {/if}
     </div>

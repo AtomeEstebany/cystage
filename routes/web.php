@@ -24,7 +24,7 @@ use Illuminate\Http\Request;
 Route::get('/', function (Request $request) {
     if ($request->user()) {
         $user = $request->user();
-        $etu = Etudiant::where('user_id',$user->id)->get();
+        $etu = Etudiant::where('user_id',$user->id)->first();
         if($user->role_id==3){
             return Inertia::render('Welcome', [
                 'offres' => Offre::latest()->get(),
@@ -128,3 +128,4 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/postulation', fn() => inertia('EntreprisePostulation'))->name('postulation');
+Route::post('/postulation', [PostulationController::class, 'poste'])->name('postulation');
