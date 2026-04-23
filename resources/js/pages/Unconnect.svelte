@@ -94,12 +94,47 @@
                 entre étudiants, entreprises et encadrants sur une seule plateforme moderne,
                 claire et accessible.
             </p>
+            <!-- #if !utilisateur} -->
                 <div class="nonConnecte">
                     <button class="bouttonLogin"  onclick={() => showLogin = true}>
                         Se connecter
                     </button>
+                    <a href="/register" class="bouttonLogin2">
+                    Compte étudiant
+                    </a>
+                    <a href="/newent" class="btn btnBlanc">
+                    Compte entreprise
+                    </a>
                 </div>
+                <div class="divStatistiques">
+                    <div class="previsualisationStatistiques">
+                        <strong>+120</strong>
+                        <span>offres</span>
+                        </div>
+                    </div>
+                    <div class="previsualisationStatistiques">
+                        <strong>+35</strong>
+                        <span>entreprises</span>
+                    </div>
+
+                    <div class="previsualisationStatistiques">
+                        <strong>3</strong>
+                        <span>espaces dédiés</span>
+                    </div>
+                </div>
+                <!-- {/if} -->
+            </div>
+            
+            <div class="divDroite">
+                <div class="divAffichage1">
+                    <span class="miniTexte">Recherche simplifiée</span>
+            <h3>Tout regrouper. Tout clarifier.</h3>
+            <p>
+                Offres, profils et suivi sont réunis dans une seule interface pensée
+                pour rendre la recherche de stage plus fluide.
+            </p>
         </div>
+                   
     </div>
     
 </main>
@@ -316,7 +351,7 @@
   margin-top:1.4rem;
  }
 
- .petiteStat{
+ .previsualisationStatistiques{
   min-width:116px;
   padding:.95rem 1rem;
   border-radius:18px;
@@ -327,20 +362,20 @@
   transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
  }
 
- .petiteStat:hover{
+ .previsualisationStatistiques:hover{
   transform:translateY(-6px);
   box-shadow:0 20px 40px rgba(37, 99, 235, 0.12);
   border-color:#bfdbfe;
  }
 
- .petiteStat strong{
+ .previsualisationStatistiques strong{
   display:block;
   font-size:1.25rem;
   line-height:1;
   color:#0f172a;
  }
 
- .petiteStat span{
+ .previsualisationStatistiques span{
   display:block;
   margin-top:.35rem;
   color:#64748b;
