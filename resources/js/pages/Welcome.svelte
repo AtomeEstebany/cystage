@@ -45,6 +45,8 @@
 
  let utilisateur = $derived($page?.props?.auth?.user ?? null)
 
+ const animScroll = () => {}
+
  onMount(() => {
   
   let observer = new IntersectionObserver((entrees) => {
@@ -62,8 +64,11 @@
   
   blocs.forEach((b) => observer.observe(b))
 
+  window.addEventListener('scroll', animScroll)
+
   return () => {
    observer.disconnect()
+   window.removeEventListener('scroll', animScroll)
   }
  })
 </script>
