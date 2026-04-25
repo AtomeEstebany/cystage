@@ -1,6 +1,8 @@
 <script lang="ts">
     import { inertia, page } from '@inertiajs/svelte';
     import { useForm } from '@inertiajs/svelte';
+    import Button from '@/components/Button.svelte';
+
 
     let { showModal = $bindable(false), showLogin = $bindable(false) } = $props();
     
@@ -21,20 +23,20 @@
         {#if user}
         
             {#if user.role_id==2}
-                <a use:inertia class="btn-ghost" href="/postulation">Consulter les postulations</a>
+                <Button variant="btn-ghost" href="/postulation">Consulter les postulations</Button>
             {/if}
             {#if user}
-                <a use:inertia class="btn-ghost" href="/profil">Mon profil</a>
+                <Button variant="btn-ghost" href="/profil">Mon profil</Button>
             {/if}
             {#if user.role_id==2 || user.role_id==1}
-                <button class="btn-secondary" onclick={() => showModal = !showModal}>Publier une offre</button>
+                <Button variant="btnBlanc" onclick={() => showModal = !showModal}>Publier une offre</Button>
             {/if}
             {#if user.role_id==1}
-                <a use:inertia class="btn-ghost" href="/admin">Administration</a>
+                <Button variant="btn-ghost" href="/admin">Administration</Button>
             {/if}
-            <button class="btn-primary" onclick={logout}>Déconnexion</button>
+                <Button variant="btnBleu"onclick={logout}>Déconnexion</Button>
         {:else}
-            <a use:inertia class="btn-primary" href="/login">Connexion</a>
+                <Button variant="btnBleu" href={"/login"}>Connexion</Button>
         {/if}
     </div>
 </header>

@@ -1,8 +1,7 @@
 <script lang="ts">
     import { useForm } from '@inertiajs/svelte';
 
-    let { showModalPostuler = $bindable(), offre = $bindable(), etudiant = $bindable() } = $props();
-
+    let { showModalPostuler = $bindable(), offre = $bindable(), etudiant = $bindable()} = $props();
     function disable_modal() {
         showModalPostuler = !showModalPostuler;
     }
@@ -152,6 +151,8 @@
 </div>
 
 <style>
+
+
     .overlay {
         position: fixed;
         inset: 0;

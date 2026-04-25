@@ -1,5 +1,6 @@
 <script lang="ts">
     import AppHead from '@/components/AppHead.svelte';
+    import Button from '@/components/Button.svelte';
     import logo from './img/logo.png';
     
 </script>
@@ -38,8 +39,8 @@
     </p>
 
      <div class="actionsHero">
-      <a href="/login" class="btn btnBleu">Se connecter</a>
-      <a href="/register" class="btn btnBlanc">Créer un compte</a>
+      <Button href="/login" variant="btn btnBleu" size="large">Se connecter</Button>
+      <Button href="/register" variant="btn btnBlanc">Crée un compte</Button>
      </div>
 
      <div class="statsHero apparition">
@@ -220,8 +221,8 @@
      publier des opportunités et structurer votre parcours.
     </p>
     <div class="actionsHero centre">
-     <a href="/login" class="btn btnBleu">Connexion</a>
-     <a href="/register" class="btn btnBlanc">Inscription</a>
+    <Button href="/login" variant="btn btnBleu">Connexion</Button>
+    <Button href="/register" variant="btn btnBlanc">Inscription</Button>
     </div>
    </div>
   </section>
@@ -232,34 +233,6 @@
 </footer>
 
 <style>
- :global(body) {
-  --primary-700: #1d4ed8;
-  --primary-600: #2563eb;
-  --primary-500: #3b82f6;
-  --primary-100: #dbeafe;
-  --primary-50: #eff6ff;
-  --ink-900: #0f172a;
-  --ink-700: #334155;
-  --ink-600: #475569;
-  --border-200: #e2e8f0;
-  --surface-0: #ffffff;
-  --bg-page: #f8fafc;
-  --shadow-soft: 0 16px 38px rgba(15, 23, 42, 0.08);
-  --shadow-medium: 0 24px 48px rgba(37, 99, 235, 0.15);
-  margin: 0;
-  background: linear-gradient(180deg, #f3f8ff 0%, #ffffff 28%, var(--bg-page) 100%);
-  color: var(--ink-900);
-  font-family: "Plus Jakarta Sans", sans-serif;
- }
-
- * {
-  box-sizing: border-box;
- }
-
- main {
-  width: 100%;
-  overflow: hidden;
- }
 
  .hero {
   position: relative;
@@ -355,49 +328,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
- }
-
- .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 50px;
-  padding: 0.85rem 1.35rem;
-  border-radius: 14px;
-  border: 1px solid transparent;
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
- }
-
- .btn:focus-visible {
-  outline: 3px solid rgba(37, 99, 235, 0.35);
-  outline-offset: 2px;
- }
-
- .btnBleu {
-  background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
-  color: #ffffff;
-  box-shadow: var(--shadow-medium);
- }
-
- .btnBleu:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 28px 52px rgba(37, 99, 235, 0.24);
- }
-
- .btnBlanc {
-  background: var(--surface-0);
-  color: var(--ink-900);
-  border-color: var(--border-200);
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
- }
-
- .btnBlanc:hover {
-  border-color: var(--primary-100);
-  transform: translateY(-2px);
  }
 
  .statsHero {
@@ -779,9 +709,6 @@
    flex-direction: column;
   }
 
-  .btn {
-   width: 100%;
-  }
 
   .blocFin {
    padding: 2rem 1.2rem;

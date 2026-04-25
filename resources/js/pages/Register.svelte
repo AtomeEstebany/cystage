@@ -257,28 +257,7 @@
 </main>
 
 <style>
-    * { box-sizing: border-box; }
 
-    :global(body) {
-        --primary-700: #1d4ed8;
-        --primary-600: #2563eb;
-        --primary-100: #dbeafe;
-        --primary-50: #eff6ff;
-        --ink-900: #0f172a;
-        --ink-600: #475569;
-        --border-200: #e2e8f0;
-        margin: 0;
-        font-family: "Plus Jakarta Sans", sans-serif;
-        background: linear-gradient(180deg, #f3f8ff 0%, #ffffff 30%, #f8fafc 100%);
-    }
-
-    main {
-        min-height: calc(100vh - 64px);
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        padding: 3rem 1rem;
-    }
 
     .box {
         background: #ffffff;

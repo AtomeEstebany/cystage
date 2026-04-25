@@ -1,5 +1,7 @@
 <script lang="ts">
     import { useForm } from '@inertiajs/svelte';
+    import Button from '@/components/Button.svelte';
+
     let { showModal = $bindable(), entreprises = $bindable(), competences = $bindable(), domaines = $bindable(), user } = $props();
     function disable_modal() {
         showModal=!showModal;
@@ -92,22 +94,12 @@
                 <textarea bind:value={$form.profil_desc} id="profil_desc" rows="3" placeholder="Décrivez le profil..."></textarea>
                 {#if $form.errors.profil_desc}<span class="erreur">{$form.errors.profil_desc}</span>{/if}
             </div>
-
-            <button type="submit" class="submit">Publier l'offre</button>
+            <Button type="sumbit" variant="btnBleu">Publier l'offre</Button>
         </form>
     </div>
 </div>
 
 <style>
-    :global(body) {
-        --primary-700: #1d4ed8;
-        --primary-600: #2563eb;
-        --primary-100: #dbeafe;
-        --ink-900: #0f172a;
-        --ink-600: #475569;
-        --border-200: #e2e8f0;
-        font-family: "Plus Jakarta Sans", sans-serif;
-    }
 
     .overlay {
         position: fixed;

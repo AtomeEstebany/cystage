@@ -301,22 +301,7 @@
 </footer>
 
 <style>
-    :global(body) {
-        --primary-700: #1d4ed8;
-        --primary-600: #2563eb;
-        --primary-100: #dbeafe;
-        --primary-50: #eff6ff;
-        --ink-900: #0f172a;
-        --ink-600: #475569;
-        --border-200: #e2e8f0;
-        margin: 0;
-        background: linear-gradient(180deg, #f3f8ff 0%, #ffffff 28%, #f8fafc 100%);
-        color: #0f172a;
-        font-family: "Plus Jakarta Sans", sans-serif;
-    }
 
-    * { box-sizing: border-box; }
-    main { width: 100%; }
 
     .zoneOffres {
         max-width: 1300px;
