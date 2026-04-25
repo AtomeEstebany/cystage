@@ -21,16 +21,17 @@
 <main>
     <div class="box">
         <div class="titre">
-            <img class="img-profil" src="https://static.vecteezy.com/system/resources/thumbnails/019/879/186/small_2x/user-icon-on-transparent-background-free-png.png" alt="Logo photo profil">
+            <span class="icon">🔐</span>
             <span>Connectez-vous</span>
         </div>
+        <p class="subtitle">Accédez à votre espace CY Stage pour suivre vos offres et candidatures.</p>
 
         {#if success}
             <div class="alert-success">{success}</div>
         {/if}
 
-        {#if $form.errors.email}
-            <span class="erreur">{$form.errors.email}</span>
+        {#if $form.errors.email || $form.errors.password}
+            <span class="erreur">{$form.errors.email || $form.errors.password}</span>
         {/if}
 
         <form onsubmit={submit}>
@@ -65,16 +66,23 @@
 </main>
 
 <style>
-    * {
-        font-family: "Plus Jakarta Sans", sans-serif;
-        box-sizing: border-box;
+    * { box-sizing: border-box; }
+
+    :global(body) {
+        --primary-700: #1d4ed8;
+        --primary-600: #2563eb;
+        --primary-100: #dbeafe;
+        --primary-50: #eff6ff;
+        --ink-900: #0f172a;
+        --ink-600: #475569;
+        --border-200: #e2e8f0;
         margin: 0;
-        padding: 0;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: linear-gradient(180deg, #f3f8ff 0%, #ffffff 30%, #f8fafc 100%);
     }
 
     main {
         min-height: calc(100vh - 64px);
-        background: #f8fafc;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -82,26 +90,42 @@
     }
 
     .box {
-        background: #ffffff;
-        border-radius: 12px;
+        background: #fff;
+        border: 1px solid var(--border-200);
+        border-radius: 20px;
         padding: 2.5rem 2rem;
-        width: 380px;
+        width: 430px;
         max-width: 90vw;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 20px 42px rgba(15, 23, 42, 0.08);
     }
 
     .titre {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 15px;
-        font-size: 1.3rem;
+        gap: 0.5rem;
+        font-size: 1.4rem;
         font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 1.5rem;
+        color: var(--ink-900);
+        margin-bottom: 0.6rem;
     }
 
-    .img-profil { width: 40px; }
+    .icon {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--primary-50);
+    }
+
+    .subtitle {
+        color: var(--ink-600);
+        text-align: center;
+        margin-bottom: 1.4rem;
+        font-size: 0.94rem;
+    }
 
     .alert-success {
         background: #dcfce7;
@@ -115,9 +139,10 @@
 
     .erreur {
         color: #d32f2f;
-        margin-bottom: 10px;
+        margin-bottom: 0.75rem;
         display: block;
         font-size: 0.875rem;
+        text-align: center;
     }
 
     form {
@@ -128,17 +153,16 @@
 
     .field {
         position: relative;
-        margin-top: 0.5rem;
+        margin-top: 0.35rem;
     }
 
     label {
         position: absolute;
-        background: linear-gradient(to bottom, #f9f9f9, #ffffff);
-        margin-left: 10px;
-        margin-top: -7px;
-        padding-left: 10px;
-        padding-right: 10px;
-        font-size: 14px;
+        background: #fff;
+        margin-left: 0.75rem;
+        margin-top: -0.55rem;
+        padding: 0 0.35rem;
+        font-size: 0.83rem;
         color: #374151;
         font-weight: 600;
         z-index: 1;
@@ -149,18 +173,18 @@
         width: 100%;
         padding: 0.75rem;
         border: 1px solid #d1d5db;
-        border-radius: 8px;
+        border-radius: 10px;
         font-size: 0.9rem;
         font-family: inherit;
         outline: none;
         box-sizing: border-box;
         background: #ffffff;
-        transition: border-color 0.15s;
+        transition: border-color 0.15s, box-shadow 0.15s;
     }
 
     input[type="email"]:focus,
     input[type="password"]:focus {
-        border-color: #2563eb;
+        border-color: var(--primary-600);
         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
 
@@ -168,20 +192,32 @@
 
     input[type="submit"] {
         width: 100%;
-        padding: 0.7rem;
-        background: #2563eb;
+        padding: 0.78rem;
+        background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
         color: white;
         border: none;
-        border-radius: 8px;
+        border-radius: 10px;
         font-size: 0.95rem;
         font-weight: 600;
         cursor: pointer;
         font-family: inherit;
-        transition: background 0.15s;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
         margin-top: 0.25rem;
+        box-shadow: 0 14px 30px rgba(37, 99, 235, 0.24);
     }
 
-    input[type="submit"]:hover { background: #1d4ed8; }
+    input[type="submit"]:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+        box-shadow: 0 18px 35px rgba(37, 99, 235, 0.28);
+    }
+
+    input[type="submit"]:focus-visible,
+    input[type="email"]:focus-visible,
+    input[type="password"]:focus-visible {
+        outline: 3px solid rgba(37, 99, 235, 0.35);
+        outline-offset: 2px;
+    }
 
     .footer-links {
         margin-top: 1.25rem;
@@ -200,4 +236,13 @@
     }
 
     .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+        .box {
+            width: 100%;
+            max-width: 100%;
+            padding: 1.8rem 1.2rem;
+            border-radius: 16px;
+        }
+    }
 </style>

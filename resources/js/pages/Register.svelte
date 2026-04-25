@@ -89,6 +89,7 @@
 <main>
     <div class="box">
         <h1>Créer un compte</h1>
+        <p class="subtitle">Choisissez votre profil et complétez les informations pour rejoindre CY Stage.</p>
 
         <div class="role-selector">
             <button
@@ -256,16 +257,23 @@
 </main>
 
 <style>
-    * {
-        font-family: "Plus Jakarta Sans", sans-serif;
-        box-sizing: border-box;
+    * { box-sizing: border-box; }
+
+    :global(body) {
+        --primary-700: #1d4ed8;
+        --primary-600: #2563eb;
+        --primary-100: #dbeafe;
+        --primary-50: #eff6ff;
+        --ink-900: #0f172a;
+        --ink-600: #475569;
+        --border-200: #e2e8f0;
         margin: 0;
-        padding: 0;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: linear-gradient(180deg, #f3f8ff 0%, #ffffff 30%, #f8fafc 100%);
     }
 
     main {
         min-height: calc(100vh - 64px);
-        background: #f8fafc;
         display: flex;
         align-items: flex-start;
         justify-content: center;
@@ -274,51 +282,59 @@
 
     .box {
         background: #ffffff;
-        border-radius: 16px;
+        border-radius: 20px;
+        border: 1px solid var(--border-200);
         padding: 2.5rem;
-        width: 700px;
+        width: 760px;
         max-width: 100%;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        box-shadow: 0 20px 42px rgba(15, 23, 42, 0.08);
     }
 
     h1 {
-        font-size: 1.5rem;
+        font-size: 1.65rem;
         font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 1.5rem;
+        color: var(--ink-900);
+        margin-bottom: 0.6rem;
         text-align: center;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: var(--ink-600);
+        margin-bottom: 1.6rem;
+        font-size: 0.95rem;
     }
 
     .role-selector {
         display: flex;
         gap: 1rem;
-        margin-bottom: 2rem;
+        margin-bottom: 1.7rem;
         background: #f1f5f9;
         padding: 0.4rem;
-        border-radius: 10px;
+        border-radius: 12px;
+        border: 1px solid var(--border-200);
     }
 
     .role-btn {
         flex: 1;
         padding: 0.65rem 1rem;
         border: none;
-        border-radius: 8px;
+        border-radius: 10px;
         font-size: 0.95rem;
         font-weight: 600;
         cursor: pointer;
         font-family: inherit;
         background: transparent;
         color: #64748b;
-        transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+        transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .role-btn.active {
         background: #ffffff;
-        color: #1e40af;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        color: #1d4ed8;
+        box-shadow: 0 8px 18px rgba(37, 99, 235, 0.16);
     }
 
-    /* Formulaire */
     form {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -344,7 +360,7 @@
         width: 100%;
         padding: 12px 15px;
         border: 1px solid #ced4da;
-        border-radius: 6px;
+        border-radius: 10px;
         font-size: 15px;
         font-family: inherit;
         background-color: #fff;
@@ -353,7 +369,7 @@
     }
 
     .form-group input:focus {
-        border-color: #2563eb;
+        border-color: var(--primary-600);
         box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
     }
 
@@ -373,24 +389,37 @@
         grid-column: 1 / -1;
         font-size: 13px;
         color: #6c757d;
+        margin-top: -0.25rem;
     }
 
     input[type="submit"]#creer {
         grid-column: 1 / -1;
         width: 100%;
-        padding: 0.75rem;
-        background: #2563eb;
+        padding: 0.85rem;
+        background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
         color: white;
         border: none;
-        border-radius: 8px;
+        border-radius: 10px;
         font-size: 1rem;
         font-weight: 600;
         cursor: pointer;
         font-family: inherit;
-        transition: background 0.15s;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 14px 30px rgba(37, 99, 235, 0.24);
     }
 
-    input[type="submit"]#creer:hover { background: #1d4ed8; }
+    input[type="submit"]#creer:hover {
+        background: linear-gradient(135deg, var(--primary-700), #1d4ed8);
+        transform: translateY(-1px);
+        box-shadow: 0 18px 35px rgba(37, 99, 235, 0.28);
+    }
+
+    .role-btn:focus-visible,
+    .form-group input:focus-visible,
+    input[type="submit"]#creer:focus-visible {
+        outline: 3px solid rgba(37, 99, 235, 0.35);
+        outline-offset: 2px;
+    }
 
     .footer-links {
         margin-top: 1.5rem;
@@ -406,5 +435,17 @@
     }
 
     .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 800px) {
+        .box {
+            padding: 1.8rem 1.2rem;
+            border-radius: 16px;
+        }
+
+        form {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+    }
 
 </style>
