@@ -14,10 +14,10 @@
     let showLogin= $state(false);
 
     function recupererDesDomaines(offres,liens,listeDesDomaines){
-        let domaines = $state([]);
+        let domaines: any[] = $state([]);
         for(let varListe of liens){
-            if(offres.id == l.offre_id){
-                domaines.push(d[varListe.dom_id-1]);
+            if(offres.id == varListe.offre_id){
+                domaines.push(listeDesDomaines[varListe.dom_id-1]);
             }
         }
         return domaines;
@@ -32,15 +32,14 @@
     }
 
     function recupererCompetences(offre,liens,listeCompetences){
-        let tabCompetences=[];
+        let tabCompetences: any[] = [];
         for(let varListe of liens){
             if(offre.id == varListe.offre_id){
-                res.push(listeCompetences[varListe.skill_id-1]);
+                tabCompetences.push(listeCompetences[varListe.skill_id-1]);
             }
         }
         return tabCompetences;
     }
-
 
     function modal() {
         showModal=!showModal;
@@ -140,7 +139,7 @@
 </main>
 
 {#if showModal}
-    <Modal bind:showModal={showModal}/>
+    <Modal bind:showModal={showModal} user={null}/>
 {/if}
 
 {#if showLogin}

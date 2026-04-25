@@ -19,7 +19,7 @@
  function recupDomaines(offre, liens, listeDomaines){
   
   
-  let res = []
+  let res: any[] = []
   
   for(let l of liens){
    if(offre.id == l.offre_id){
@@ -39,7 +39,7 @@
  }
 
  function recupCompetences(offre, liens, listeCompetences){
-  let res = []
+  let res: any[] = []
   for(let l of liens){
    if(offre.id == l.offre_id){
     res.push(listeCompetences[l.skill_id - 1])
@@ -48,7 +48,9 @@
   return res
  }
 
- let utilisateur = $derived(page?.props?.auth?.user ?? null)
+ let utilisateur = $derived($page?.props?.auth?.user ?? null)
+
+ const animScroll = () => {}
 
  onMount(() => {
   
@@ -520,7 +522,14 @@
 
 <center>
     {#if !utilisateur}
-        <Unconnect/>
+        <Unconnect 
+          bind:entreprises={entreprises} 
+          {offres} 
+          bind:competences={competences} 
+          bind:domaines={domaines} 
+          {links_offres_competences} 
+          {links_offres_domaines} 
+        />
     {/if}
 </center>
 
