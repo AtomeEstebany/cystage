@@ -1,5 +1,6 @@
 <script lang="ts">
     import { useForm } from '@inertiajs/svelte';
+
     let { showModalPostuler = $bindable(), offre = $bindable(), etudiant = $bindable()} = $props();
     function disable_modal() {
         showModalPostuler=!showModalPostuler;
@@ -58,15 +59,7 @@
 </div>
 
 <style>
-    :global(body) {
-        --primary-700: #1d4ed8;
-        --primary-600: #2563eb;
-        --primary-100: #dbeafe;
-        --ink-900: #0f172a;
-        --ink-600: #475569;
-        --border-200: #e2e8f0;
-        font-family: "Plus Jakarta Sans", sans-serif;
-    }
+
 
     .overlay {
         position: fixed;

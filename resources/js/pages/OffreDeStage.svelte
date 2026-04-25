@@ -60,16 +60,6 @@
     </div>
 
     <style>
-        :global(body) {
-            --primary-700: #1d4ed8;
-            --primary-600: #2563eb;
-            --primary-100: #dbeafe;
-            --ink-900: #0f172a;
-            --ink-600: #475569;
-            --border-200: #e2e8f0;
-            margin: 0;
-            font-family: "Plus Jakarta Sans", sans-serif;
-        }
 
         h1 { font-size: clamp(1.35rem, 2.4vw, 1.9rem); margin: 0; color: var(--ink-900); }
         h2 { font-size: 1.1rem; color: var(--ink-900); margin: 0.5rem 0; }
