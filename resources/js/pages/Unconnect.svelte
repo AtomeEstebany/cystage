@@ -39,7 +39,7 @@
     </p>
 
      <div class="actionsHero">
-      <Button href="/login" variant="btn btnBleu">Se connecter</Button>
+      <Button href="/login" variant="btn btnBleu" size="large">Se connecter</Button>
       <Button href="/register" variant="btn btnBlanc">Crée un compte</Button>
      </div>
 

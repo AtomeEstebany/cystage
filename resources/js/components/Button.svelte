@@ -7,7 +7,6 @@
         type?: "button" | "submit" | "reset";
         href?: string | null;
         variant?: "btnBleu" | "btnBlanc" | "btn-ghost" | "btnBleu";
-        size?: "large" | "small"; 
         onclick?: (e: MouseEvent) => void;
     }
 
@@ -15,19 +14,19 @@
         children,
         type = "button" as "button" | "submit" | "reset",
         href = null,
-        variant, 
-        size="small",
+        variant = "btnBleu", 
+
         onclick = undefined,
     } = $props();
 </script>
 
     {#if href}
-        <a href="{href}" use:inertia class="btn {variant} {size}">
-            {@render children()}
+        <a href="{href}" use:inertia class="btn {variant}">
+            {@render children?.()}
         </a>
     {:else}
-        <button {type} {onclick} class="btn {variant} {size}">
-            {@render children()}
+        <button {type} {onclick} class="btn {variant}">
+            {@render children?.()}
         </button>
     {/if}
 
@@ -90,17 +89,7 @@
     color: var(--primary-700);
   }
 
-  .large {
-    min-height: 50px;
-    padding: 0.85rem 1.35rem;
-    border-radius: 14px;
-  }
 
-  .small {
-    padding: 0.45rem 0.9rem;
-    border-radius: 10px;
-    font-size: 0.84rem;
-  }
 
   @media (max-width: 768px) {
         .hero {

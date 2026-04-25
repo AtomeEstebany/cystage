@@ -36,7 +36,7 @@
             {/if}
                 <Button variant="btnBleu"onclick={logout}>Déconnexion</Button>
         {:else}
-            <Button variant="btnBleu" href={"/login"}>Connexion</Button>
+                <Button variant="btnBleu" href={"/login"}>Connexion</Button>
         {/if}
     </div>
 </header>
