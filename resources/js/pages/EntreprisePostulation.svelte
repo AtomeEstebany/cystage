@@ -3,7 +3,7 @@
     import AppHead from '@/components/AppHead.svelte';
     import { useForm } from '@inertiajs/svelte';
 
-    let postulation = [1,2,3,4,5,6,7,8,9,10];
+    let { postulations=[] } = $props();
 </script>
 
 <AppHead title="Postulations"/>
@@ -12,17 +12,17 @@
 <main class="page-container">
     <center>
         <br><br><br><br>
-        <h1>Vous avez <b><span style="color:blue">{postulation.length} nouvelles</span> candidatures!</b></h1>
+        <h1>Vous avez <b><span style="color:blue">{postulations.length} nouvelles</span> candidatures!</b></h1>
         <p>Consultez les maintenant!</p>
         <br><br>
     </center>
-    {#each postulation as p}
+    {#each postulations as p}
         <div class="main">
-            <h2>Théo Maynadier</h2>
+            <h2>{p?.etudiant?.nom || "Nom de l'étudiant"} {p?.etudiant?.prenom || ""}</h2>
             <hr><br>
-            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h3>
+            <h3>{p?.motiv || "Motivation de l'étudiant"}</h3>
             <br>
-            <h3>Voir cv : <span style="color:blue">file.cv</span></h3>
+            <h3>Voir cv : <span style="color:blue">{p?.path || "fichier.cv"}</span></h3>
             <center>
               <button class="close"><p>✅</p></button>
                 <button class="close"><p>❌</p></button>

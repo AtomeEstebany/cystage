@@ -3,6 +3,8 @@
     import AppHead from '@/components/AppHead.svelte';
     import { useForm, page } from '@inertiajs/svelte';
 
+    let { showLogin = $bindable() } = $props();
+
     const form = useForm({ email: '', password: '' });
 
     let success = $derived($page.props.flash?.success);

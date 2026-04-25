@@ -315,7 +315,7 @@
         transition: background 0.15s;
     }
 
-    .btn-edit   { background: rgb(255, 0, 0); color: white; }
+    .btn-edit   { background: #2563eb; color: white; }
     .btn-edit:hover   { background: #1d4ed8; }
     .btn-save   { background: #16a34a; color: white; }
     .btn-save:hover   { background: #15803d; }

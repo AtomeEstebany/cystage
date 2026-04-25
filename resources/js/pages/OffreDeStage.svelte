@@ -20,10 +20,10 @@
     <div class="main">
        <header>
         <h1><b>{offre.nom}</b></h1>
-        de {entreprise.nom}
+        de {entreprise?.nom}
          <div class="location">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          <p class="information">{entreprise.adresse}, {entreprise.code_postal}, {entreprise.ville}, {entreprise.pays}<br></p>
+          <p class="information">{entreprise?.adresse}, {entreprise?.code_postal}, {entreprise?.ville}, {entreprise?.pays}<br></p>
          </div>
        </header>
        <hr>
@@ -37,7 +37,7 @@
         <br>
         <p>Qualités requises: {offre.profil_desc}<br></p>
         <br>
-        <p>Pour plus d'information, appeler le {entreprise.num_tel}<p>
+        <p>Pour plus d'information, appeler le {entreprise?.num_tel}<p>
         <br>
         <p>Compétences demandées :<p>
         <p> {#each skills as s}
@@ -48,7 +48,7 @@
             <p>#{d.name}</p>
         {/each}
 
-        {#if user.id ==3}
+        {#if user?.role_id == 3}
             <input type="submit" class="button" value="Postuler" onclick={modalPostuler}/>
 
             {#if showModalPostuler}

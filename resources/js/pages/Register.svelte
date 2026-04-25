@@ -2,7 +2,6 @@
     import Header from '@/components/Header.svelte';
     import { useForm } from '@inertiajs/svelte';
     import AppHead from '@/components/AppHead.svelte';
-    import logo from './img/logo.png';
 
     let role: 'etudiant' | 'entreprise' = $state('etudiant');
 
