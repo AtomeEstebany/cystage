@@ -1,134 +1,346 @@
 <script lang="ts">
-    import Modal from "./Modal.svelte";
-    import "./ModalPoste.svelte";
     import ModalPoste from "./ModalPoste.svelte";
-    import { createInertiaApp,page } from '@inertiajs/svelte';
+    import { page } from '@inertiajs/svelte';
 
-    let { offre = $bindable(), entreprise = $bindable(), doms , skills, etudiant = $bindable()}= $props();
-//'user_id','nom','siret','adresse','code_postal','ville','pays','num_tel'
-//'nom','ent_id','nb_week','week_hour','paye_hour','teletrav','poste_desc','profil_desc'
+    let { offre = $bindable(), entreprise = $bindable(), doms, skills, etudiant = $bindable() } = $props();
+
     let showModalPostuler = $state(false);
-    function modalPostuler() {
-        console.log("test");
-        showModalPostuler=!showModalPostuler;
-    }
-
     let user = $derived($page.props.auth?.user);
 
-
+    function portal(node: HTMLElement) {
+        document.body.appendChild(node);
+        return {
+            destroy() {
+                node.remove();
+            }
+        };
+    }
 </script>
-    <div class="main">
-       <header>
-        <h1><b>{offre.nom}</b></h1>
-        de {entreprise?.nom}
-         <div class="location">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          <p class="information">{entreprise?.adresse}, {entreprise?.code_postal}, {entreprise?.ville}, {entreprise?.pays}<br></p>
-         </div>
-       </header>
-       <hr>
-       <h2>Informations utiles: <br></h2>
-            <p>Durée de travail : {offre.nb_week} semaines</p>
-            <p>par semaine: {offre.week_hour}h payées {offre.paye_hour} € </p>
-            <p>Télétravail: {#if offre.teletrav}✅{:else}❌{/if}</p>
-       <br>
 
-        <p>Tâches: {offre.poste_desc}<br></p>
-        <br>
-        <p>Qualités requises: {offre.profil_desc}<br></p>
-        <br>
-        <p>Pour plus d'informations, appeler le {entreprise?.num_tel}</p>
-        <br>
-        <p>Compétences demandées :</p>
-        <p> {#each skills as s}
-            {s.name}&nbsp;
-        {/each}</p>
-        <br>
-        {#each doms as d}
-            <p>#{d.name}</p>
-        {/each}
-
-        {#if user?.role_id == 3}
-            <input type="submit" class="button" value="Postuler" onclick={modalPostuler}/>
-
-            {#if showModalPostuler}
-                <ModalPoste etudiant={etudiant} bind:showModalPostuler={showModalPostuler} offre={offre}/>
+<div class="card">
+    <!-- Header -->
+    <div class="card-header">
+        <div class="header-left">
+            {#if entreprise?.logo}
+                <img src={entreprise.logo} alt="Logo {entreprise.nom}" class="logo-ent"/>
+            {:else}
+                <div class="logo-placeholder">{entreprise?.nom?.[0] ?? '?'}</div>
             {/if}
-        {/if}
+            <div class="header-info">
+                <h1>{offre.nom}</h1>
+                <span class="ent-nom">{entreprise?.nom}</span>
+            </div>
+        </div>
 
-
+        <div class="badges">
+            {#if offre.teletrav}
+                <span class="badge badge-green">🏠 Télétravail</span>
+            {:else}
+                <span class="badge badge-gray">🏢 Présentiel</span>
+            {/if}
+            {#each doms as d}
+                <span class="badge badge-blue">#{d.name}</span>
+            {/each}
+        </div>
     </div>
 
-    <style>
-        :global(body) {
-            --primary-700: #1d4ed8;
-            --primary-600: #2563eb;
-            --primary-100: #dbeafe;
-            --ink-900: #0f172a;
-            --ink-600: #475569;
-            --border-200: #e2e8f0;
-            margin: 0;
-            font-family: "Plus Jakarta Sans", sans-serif;
-        }
+    <hr class="divider"/>
 
-        h1 { font-size: clamp(1.35rem, 2.4vw, 1.9rem); margin: 0; color: var(--ink-900); }
-        h2 { font-size: 1.1rem; color: var(--ink-900); margin: 0.5rem 0; }
+    <!-- Infos rapides -->
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="info-icon">📅</span>
+            <div>
+                <span class="info-label">Durée</span>
+                <span class="info-value">{offre.nb_week} semaines</span>
+            </div>
+        </div>
+        <div class="info-item">
+            <span class="info-icon">⏰</span>
+            <div>
+                <span class="info-label">Rythme</span>
+                <span class="info-value">{offre.week_hour}h / semaine</span>
+            </div>
+        </div>
+        <div class="info-item">
+            <span class="info-icon">💶</span>
+            <div>
+                <span class="info-label">Gratification</span>
+                <span class="info-value">{offre.paye_hour} €/h</span>
+            </div>
+        </div>
+        <div class="info-item">
+            <span class="info-icon">📍</span>
+            <div>
+                <span class="info-label">Lieu</span>
+                <span class="info-value">{entreprise?.ville}, {entreprise?.pays}</span>
+            </div>
+        </div>
+    </div>
 
-        div.main {
-            padding: 1.4rem;
-            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
-            border: 1px solid var(--border-200);
-            border-radius: 16px;
-            margin-left: 10%;
-            margin-right: 10%;
-            background: #fff;
-        }
+    <hr class="divider"/>
 
-        div.location {
-            display: flex;
-            align-items: left;
-            vertical-align: bottom;
-            gap:5px;
-        }
-        div.location svg {
-            margin-top: 2px;
-        }
+    <!-- Description -->
+    <div class="section">
+        <h2>Description du poste</h2>
+        <p>{offre.poste_desc}</p>
+    </div>
 
-        input[type="submit"] {
-            width: 100%;
-            padding: 0.8rem;
-            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            margin-top: 0.25rem;
-            box-shadow: 0 14px 30px rgba(37, 99, 235, 0.24);
-        }
+    <div class="section">
+        <h2>Profil recherché</h2>
+        <p>{offre.profil_desc}</p>
+    </div>
 
-        input[type="submit"]:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 18px 35px rgba(37, 99, 235, 0.28);
-        }
+    <!-- Compétences -->
+    {#if skills && skills.length > 0}
+        <div class="section">
+            <h2>Compétences</h2>
+            <div class="skills">
+                {#each skills as s}
+                    <span class="skill-tag">{s.name}</span>
+                {/each}
+            </div>
+        </div>
+    {/if}
 
-        p.information {
-            color: var(--ink-600);
-        }
+    <!-- Footer -->
+    <div class="card-footer">
+        <span class="contact">📞 {entreprise?.num_tel}</span>
 
-        p {
-            margin: 0.35rem 0;
-            color: var(--ink-900);
-            line-height: 1.6;
-        }
+        {#if user?.role_id == 3}
+            <button class="btn-postuler" onclick={() => showModalPostuler = true}>
+                Postuler →
+            </button>
+        {/if}
+    </div>
 
-        @media (max-width: 600px) {
-            div.main {
-                margin: 0;
-                padding: 1rem;
-            }
-        }
-    </style>
+    {#if showModalPostuler}
+        <div use:portal>
+            <ModalPoste etudiant={etudiant} bind:showModalPostuler={showModalPostuler} offre={offre}/>
+        </div>
+    {/if}
+</div>
+
+<style>
+    :global(body) {
+        --primary-700: #1d4ed8;
+        --primary-600: #2563eb;
+        --ink-900: #0f172a;
+        --ink-600: #475569;
+        --border-200: #e2e8f0;
+        font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
+    .card {
+        background: #fff;
+        border: 1px solid var(--border-200);
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 30px rgba(15, 23, 42, 0.1);
+        transform: translateY(-2px);
+    }
+
+    /* Header */
+    .card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+    }
+
+    .logo-ent {
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
+        border-radius: 12px;
+        border: 1px solid var(--border-200);
+        background: #f8fafc;
+        padding: 5px;
+        flex-shrink: 0;
+    }
+
+    .logo-placeholder {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #eff6ff, #dbeafe);
+        color: #2563eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+        border: 1px solid var(--border-200);
+        flex-shrink: 0;
+    }
+
+    .header-info h1 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--ink-900);
+        margin: 0 0 0.2rem 0;
+        line-height: 1.3;
+    }
+
+    .ent-nom {
+        font-size: 0.875rem;
+        color: var(--ink-600);
+        font-weight: 500;
+    }
+
+    /* Badges */
+    .badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        align-items: flex-start;
+        justify-content: flex-end;
+    }
+
+    .badge {
+        padding: 0.3rem 0.7rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .badge-green { background: #dcfce7; color: #16a34a; }
+    .badge-gray  { background: #f1f5f9; color: #64748b; }
+    .badge-blue  { background: #eff6ff; color: #2563eb; }
+
+    /* Divider */
+    .divider {
+        border: none;
+        border-top: 1px solid var(--border-200);
+        margin: 1rem 0;
+    }
+
+    /* Info grid */
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.75rem;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: #f8fafc;
+        border-radius: 10px;
+        padding: 0.6rem 0.8rem;
+        border: 1px solid var(--border-200);
+    }
+
+    .info-icon { font-size: 1.1rem; }
+
+    .info-label {
+        display: block;
+        font-size: 0.72rem;
+        color: var(--ink-600);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .info-value {
+        display: block;
+        font-size: 0.88rem;
+        color: var(--ink-900);
+        font-weight: 600;
+        margin-top: 0.1rem;
+    }
+
+    /* Sections */
+    .section { margin-bottom: 1rem; }
+
+    .section h2 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--ink-600);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0 0 0.4rem 0;
+    }
+
+    .section p {
+        font-size: 0.9rem;
+        color: var(--ink-900);
+        line-height: 1.65;
+        margin: 0;
+    }
+
+    /* Skills */
+    .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .skill-tag {
+        padding: 0.3rem 0.75rem;
+        background: #f1f5f9;
+        border: 1px solid var(--border-200);
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--ink-900);
+    }
+
+    /* Footer */
+    .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-200);
+    }
+
+    .contact {
+        font-size: 0.85rem;
+        color: var(--ink-600);
+    }
+
+    .btn-postuler {
+        padding: 0.6rem 1.4rem;
+        background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-postuler:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 25px rgba(37, 99, 235, 0.28);
+    }
+
+    @media (max-width: 768px) {
+        .info-grid { grid-template-columns: repeat(2, 1fr); }
+        .card-header { flex-direction: column; }
+        .badges { justify-content: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+        .info-grid { grid-template-columns: 1fr 1fr; }
+    }
+</style>
