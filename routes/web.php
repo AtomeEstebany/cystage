@@ -34,7 +34,7 @@ Route::get('/', function (Request $request) {
                 'links_offres_domaines' => Offre_Domaine::latest()->get(),
                 'entreprises' => Entreprise::latest()->get(),
                 'etudiant' => $etu,
-                // 'postulations' => Postulation::where('etu_id',$etu->pluck('id'))->get(),
+                'postulations' => Postulation::where('etu_id', $etu->id)->get(),
             ]);
         }
         if($user->role_id==2){
@@ -130,8 +130,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::get('/postulation', fn() => inertia('EntreprisePostulation'))->name('postulation');
-Route::post('/postulation', [PostulationController::class, 'poste'])->name('postulation');
-Route::patch('/profil', [AuthController::class, 'updateProfil'])->middleware('auth')->name('profil.update');
 Route::patch('/profil', [AuthController::class, 'updateProfil'])->middleware('auth')->name('profil.update');
 
 Route::get('/forgot-password', fn() => inertia('ForgotPassword'))->name('password.request');

@@ -47,12 +47,10 @@ class AuthController extends Controller
             'role_id' => 3
         ]);
 
-        $latestuser = \App\Models\User::latest()->first();
-
         Etudiant::create([
             'nom' => $validated['nom'],
             'prenom' => $validated['prenom'],
-            'user_id' => $latestuser->id,
+            'user_id' => $user->id,
             'num_etudiant' => $validated['num_etudiant']
         ]);
 
@@ -78,12 +76,10 @@ class AuthController extends Controller
 
         $user = User::create([
             'name' => 'ent-'.$validated['nom'],
-            'email' => $validated['nom'].'@ent.test',
+            'email' => $validated['nom']. time() . '@ent.test',
             'password' => Hash::make($validated['password']),
             'role_id' => 2
         ]);
-
-        $latestuser = \App\Models\User::latest()->first();
 
         Entreprise::create([
             'nom' => $validated['nom'],
@@ -92,7 +88,7 @@ class AuthController extends Controller
             'code_postal' => $validated['code_postal'],
             'ville' => $validated['ville'],
             'pays' => $validated['pays'],
-            'user_id' => $latestuser->id,
+            'user_id' => $user->id,
             'num_tel' => $validated['num_tel']
         ]);
 

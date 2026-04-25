@@ -4,14 +4,12 @@
     import { createInertiaApp } from '@inertiajs/svelte';
     import OffreDeStage from './OffreDeStage.svelte';
     import Modal from './Modal.svelte';
-    import Login from './Login.svelte';
     import logo from './img/logo.png';
 
     
     let {entreprises = $bindable(), offres, competences = $bindable(), domaines = $bindable(), links_offres_competences, links_offres_domaines } = $props();
     
     let showModal= $state(false);
-    let showLogin= $state(false);
 
     function recupererDesDomaines(offres,liens,listeDesDomaines){
         let domaines: any[] = $state([]);
@@ -46,7 +44,6 @@
     }
 
     function login() {
-        showLogin=!showLogin;
     }
 
     let ListePhraseInspirante = [
@@ -93,19 +90,18 @@
                 entre étudiants, entreprises et encadrants sur une seule plateforme moderne,
                 claire et accessible.
             </p>
-            <!-- #if !utilisateur} -->
-                <div class="nonConnecte">
-                    <button class="bouttonLogin"  onclick={() => showLogin = true}>
-                        Se connecter
-                    </button>
-                    <a href="/register" class="bouttonLogin2">
-                    Compte étudiant
-                    </a>
-                    <a href="/newent" class="btn btnBlanc">
-                    Compte entreprise
-                    </a>
-                </div>
-                <div class="divStatistiques">
+            <div class="nonConnecte">
+                <a href="/login" class="bouttonLogin">
+                    Se connecter
+                </a>
+                <a href="/register" class="bouttonLogin2">
+                Compte étudiant
+                </a>
+                <a href="/newent" class="btn btnBlanc">
+                Compte entreprise
+                </a>
+            </div>
+            <div class="divStatistiques">
                     <div class="previsualisationStatistiques">
                         <strong>+120</strong>
                         <span>offres</span>
@@ -121,7 +117,6 @@
                         <span>espaces dédiés</span>
                     </div>
                 </div>
-                <!-- {/if} -->
             </div>
             
             <div class="divDroite">
@@ -141,11 +136,6 @@
 {#if showModal}
     <Modal bind:showModal={showModal} user={null}/>
 {/if}
-
-{#if showLogin}
-    <Login bind:showLogin={showLogin}/>
-{/if}   
-
 
 <style>
     * {

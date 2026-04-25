@@ -5,14 +5,9 @@
  import { onMount } from 'svelte'
  import OffreDeStage from './OffreDeStage.svelte'
  import Modal from './Modal.svelte'
- import Login from './Login.svelte'
  import logo from './img/logo.png'
- import Unconnect from './Unconnect.svelte';
  let showModal = $state(false)
  
- let showLogin = $state(false)
-    
-
  let { entreprises=$bindable(), offres, competences=$bindable(), domaines=$bindable(), links_offres_competences, links_offres_domaines, etudiant=$bindable() }= $props();
 
 
@@ -50,8 +45,6 @@
 
  let utilisateur = $derived($page?.props?.auth?.user ?? null)
 
- const animScroll = () => {}
-
  onMount(() => {
   
   let observer = new IntersectionObserver((entrees) => {
@@ -69,11 +62,8 @@
   
   blocs.forEach((b) => observer.observe(b))
 
-  window.addEventListener('scroll', animScroll)
-
   return () => {
    observer.disconnect()
-   window.removeEventListener('scroll', animScroll)
   }
  })
 </script>
@@ -86,7 +76,7 @@
  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </AppHead>
 
-<Header bind:showModal={showModal} bind:showLogin={showLogin} />
+<Header bind:showModal={showModal} />
 
 <main>
  <section class="hero">
@@ -116,16 +106,12 @@
 
     {#if !utilisateur}
      <div class="actionsHero">
-      <button class="btn btnBleu" onclick={() => showLogin = true}>
+      <a href="/login" class="btn btnBleu">
        Se connecter
-      </button>
-
-      <a href="/register" class="btn btnBlanc">
-       Compte étudiant
       </a>
 
-      <a href="/newent" class="btn btnBlanc">
-       Compte entreprise
+      <a href="/register" class="btn btnBlanc">
+       Créer un compte
       </a>
      </div>
 
@@ -451,16 +437,12 @@
 
 
     <div class="actionsHero centre">
-     <button class="btn btnBleu" onclick={() => showLogin = true}>
+     <a href="/login" class="btn btnBleu">
       Connexion
-     </button>
-
-     <a href="/register" class="btn btnBlanc">
-      Inscription étudiant
      </a>
 
-     <a href="/newent" class="btn btnBlanc">
-      Inscription entreprise
+     <a href="/register" class="btn btnBlanc">
+      Inscription 
      </a>
     </div>
    </div>
@@ -499,6 +481,7 @@
        entreprise={entreprises}
        doms={recupDomaines(offre, links_offres_domaines, domaines)}
        skills={recupCompetences(offre, links_offres_competences, competences)}
+       etudiant={etudiant}
       />
      {/each}
      
@@ -512,6 +495,7 @@
        entreprise={recupEntreprise(offre, entreprises)}
        doms={recupDomaines(offre, links_offres_domaines, domaines)}
        skills={recupCompetences(offre, links_offres_competences, competences)}
+       etudiant={etudiant}
       />
      {/each}
     {/if}
@@ -519,19 +503,6 @@
   </section>
  {/if}
 </main>
-
-<center>
-    {#if !utilisateur}
-        <Unconnect 
-          bind:entreprises={entreprises} 
-          {offres} 
-          bind:competences={competences} 
-          bind:domaines={domaines} 
-          {links_offres_competences} 
-          {links_offres_domaines} 
-        />
-    {/if}
-</center>
 
 {#if showModal}
 
@@ -544,30 +515,6 @@
   user={utilisateur}
  />
 {/if}
-
-
-
-
-
-
-
-
-
-{#if showLogin}
-    <Login bind:showLogin={showLogin} />
-{/if}
-
-
-
-
-
-
-
-
-
-
-
-
 
 <footer>
  <p>© CyStage - Tous droits réservés 2026</p>
@@ -714,7 +661,7 @@
 
 
  .btnBleu{
-  color:white;
+  color:rgb(0, 0, 255);
   box-shadow:0 14px 30px rgba(37, 99, 235, 0.25);
  }
 
