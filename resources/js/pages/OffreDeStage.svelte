@@ -37,9 +37,9 @@
         <br>
         <p>Qualités requises: {offre.profil_desc}<br></p>
         <br>
-        <p>Pour plus d'information, appeler le {entreprise?.num_tel}<p>
+        <p>Pour plus d'information, appeler le {entreprise?.num_tel}</p>
         <br>
-        <p>Compétences demandées :<p>
+        <p>Compétences demandées :</p>
         <p> {#each skills as s}
             {s.name}&nbsp;
         {/each}</p>
@@ -60,18 +60,28 @@
     </div>
 
     <style>
-        h1 {
-            font-size: 2em;
+        :global(body) {
+            --primary-700: #1d4ed8;
+            --primary-600: #2563eb;
+            --primary-100: #dbeafe;
+            --ink-900: #0f172a;
+            --ink-600: #475569;
+            --border-200: #e2e8f0;
+            margin: 0;
+            font-family: "Plus Jakarta Sans", sans-serif;
         }
-        h2 {
-            font-size: 1.2em;
-        }
+
+        h1 { font-size: clamp(1.35rem, 2.4vw, 1.9rem); margin: 0; color: var(--ink-900); }
+        h2 { font-size: 1.1rem; color: var(--ink-900); margin: 0.5rem 0; }
+
         div.main {
-            padding: 1rem;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            border-radius: 12px;
-            margin-left: 15%;
-            margin-right: 15%;
+            padding: 1.4rem;
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+            border: 1px solid var(--border-200);
+            border-radius: 16px;
+            margin-left: 10%;
+            margin-right: 10%;
+            background: #fff;
         }
 
         div.location {
@@ -86,26 +96,39 @@
 
         input[type="submit"] {
             width: 100%;
-            padding: 0.7rem;
-            background: #2563eb;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
-            transition: background 0.15s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             margin-top: 0.25rem;
+            box-shadow: 0 14px 30px rgba(37, 99, 235, 0.24);
+        }
+
+        input[type="submit"]:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 18px 35px rgba(37, 99, 235, 0.28);
         }
 
         p.information {
-            color:grey;
+            color: var(--ink-600);
+        }
+
+        p {
+            margin: 0.35rem 0;
+            color: var(--ink-900);
+            line-height: 1.6;
         }
 
         @media (max-width: 600px) {
             div.main {
-                margin:0;
+                margin: 0;
+                padding: 1rem;
             }
         }
     </style>

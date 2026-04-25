@@ -52,12 +52,22 @@
             </div>
 
 
-            <button type="submit" class="submit">Postez l'offre</button>
+            <button type="submit" class="submit">Envoyer ma candidature</button>
         </form>
     </div>
 </div>
 
 <style>
+    :global(body) {
+        --primary-700: #1d4ed8;
+        --primary-600: #2563eb;
+        --primary-100: #dbeafe;
+        --ink-900: #0f172a;
+        --ink-600: #475569;
+        --border-200: #e2e8f0;
+        font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
     .overlay {
         position: fixed;
         inset: 0;
@@ -74,9 +84,10 @@
         max-height: 85vh;
         overflow-y: auto;
         background: white;
-        border-radius: 16px;
+        border-radius: 18px;
+        border: 1px solid var(--border-200);
         padding: 2rem;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        box-shadow: 0 16px 36px rgba(15, 23, 42, 0.2);
     }
     .header {
         display: flex;
@@ -87,7 +98,7 @@
     .titre {
         font-size: 1.2rem;
         font-weight: 700;
-        color: #1e293b;
+        color: var(--ink-900);
     }
     .close {
         background: none;
@@ -116,13 +127,13 @@
     label {
         font-size: 0.875rem;
         font-weight: 600;
-        color: #374151;
+        color: var(--ink-600);
     }
     input, textarea {
         width: 100%;
         padding: 0.55rem 0.75rem;
         border: 1px solid #d1d5db;
-        border-radius: 8px;
+        border-radius: 10px;
         font-size: 0.9rem;
         outline: none;
         transition: border-color 0.15s;
@@ -130,7 +141,7 @@
         box-sizing: border-box;
     }
     input:focus, textarea:focus {
-        border-color: #2563eb;
+        border-color: var(--primary-600);
         box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
     }
     textarea {
@@ -138,34 +149,31 @@
     }
     .submit {
         margin-top: 0.5rem;
-        padding: 0.65rem;
-        background: #2563eb;
+        padding: 0.75rem;
+        background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
         color: white;
         border: none;
-        border-radius: 8px;
+        border-radius: 10px;
         font-size: 0.95rem;
         font-weight: 600;
         cursor: pointer;
-        transition: background 0.15s;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 14px 30px rgba(37, 99, 235, 0.24);
     }
     .submit:hover {
-    background: #1d4ed8;
-    animation: shake 0.5s infinite;
-    }
-    @keyframes shake {
-        0%   { transform: rotate(0deg); }
-        33%  { transform: rotate(-5deg); }
-        66%  { transform: rotate(5deg); }
-        100% { transform: rotate(0deg); }
+        transform: translateY(-1px);
+        box-shadow: 0 18px 35px rgba(37, 99, 235, 0.28);
     }
     .erreur {
         color: #ef4444;
         font-size: 0.8rem;
     }
-    .drop-area { 
-        border: 2px dashed #666; 
-        padding: 40px; 
+    .drop-area {
+        border: 2px dashed var(--primary-100);
+        border-radius: 10px;
+        padding: 24px;
         text-align: center;
-        background: #eee;
+        background: #f8fbff;
+        color: var(--ink-600);
     }
 </style>
