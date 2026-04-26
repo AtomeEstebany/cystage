@@ -51,6 +51,7 @@ return [
 
         'mailtrap' => [
             'transport' => 'mailtrap',
+            'token' => env('MAIL_PASSWORD'),
         ],
 
         'ses' => [
