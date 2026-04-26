@@ -2,6 +2,7 @@
     import Header from '@/components/Header.svelte';
     import { useForm } from '@inertiajs/svelte';
     import AppHead from '@/components/AppHead.svelte';
+    import FormInput from '@/components/FormInput.svelte';
 
     let role: 'etudiant' | 'entreprise' = $state('etudiant');
 
@@ -112,50 +113,11 @@
 
         {#if role === 'etudiant'}
             <form id="creation_compte" onsubmit={submit}>
-                <div class="form-group">
-                    <label for="nom">Nom <span class="required">*</span></label>
-                    <input type="text" id="nom" placeholder="Nom"
-                        bind:value={$formEtudiant.nom}
-                        class:input-error={errors.nom || $formEtudiant.errors.nom}
-                    />
-                    <span class="error-message">{errors.nom || $formEtudiant.errors.nom || ''}</span>
-                </div>
-
-                <div class="form-group">
-                    <label for="prenom">Prénom <span class="required">*</span></label>
-                    <input type="text" id="prenom" placeholder="Prénom"
-                        bind:value={$formEtudiant.prenom}
-                        class:input-error={errors.prenom || $formEtudiant.errors.prenom}
-                    />
-                    <span class="error-message">{errors.prenom || $formEtudiant.errors.prenom || ''}</span>
-                </div>
-
-                <div class="form-group form-group-full">
-                    <label for="num_etudiant">Numéro étudiant <span class="required">*</span></label>
-                    <input type="text" id="num_etudiant" placeholder="12345678"
-                        bind:value={$formEtudiant.num_etudiant}
-                        class:input-error={errors.num_etudiant || $formEtudiant.errors.num_etudiant}
-                    />
-                    <span class="error-message">{errors.num_etudiant || $formEtudiant.errors.num_etudiant || ''}</span>
-                </div>
-
-                <div class="form-group form-group-full">
-                    <label for="password">Mot de passe <span class="required">*</span></label>
-                    <input type="password" id="password" placeholder="••••••••"
-                        bind:value={$formEtudiant.password}
-                        class:input-error={errors.password || $formEtudiant.errors.password}
-                    />
-                    <span class="error-message">{errors.password || $formEtudiant.errors.password || ''}</span>
-                </div>
-
-                <div class="form-group form-group-full">
-                    <label for="password_confirmation">Confirmer le mot de passe <span class="required">*</span></label>
-                    <input type="password" id="password_confirmation" placeholder="••••••••"
-                        bind:value={$formEtudiant.password_confirmation}
-                        class:input-error={errors.password_confirmation || $formEtudiant.errors.password_confirmation}
-                    />
-                    <span class="error-message">{errors.password_confirmation || $formEtudiant.errors.password_confirmation || ''}</span>
-                </div>
+                <FormInput id="nom" label="Nom" placeholder="Nom" required bind:value={$formEtudiant.nom} error={errors.nom || $formEtudiant.errors.nom}></FormInput>
+                <FormInput id="prenom" label="Prénom" placeholder="Prénom" required bind:value={$formEtudiant.prenom} error={errors.prenom || $formEtudiant.errors.prenom}></FormInput>
+                <FormInput id="num_etudiant" label="Numéro étudiant" placeholder="06 00 00 00 00" required bind:value={$formEtudiant.num_etudiant} error={errors.num_etudiant || $formEtudiant.errors.num_etudiant}></FormInput>
+                <FormInput id="password" label="Mot de passe" placeholder="••••••••" required bind:value={$formEtudiant.password} error={errors.password || $formEtudiant.errors.password}></FormInput>
+                <FormInput id="password_confirmation" label="Confirmer le mot de passe" placeholder="••••••••" required bind:value={$formEtudiant.password_confirmation} error={errors.password_confirmation || $formEtudiant.errors.password_confirmation}></FormInput>
 
                 <p class="champ-obligatoire"><span class="required">*</span> Champ obligatoire</p>
                 <input type="submit" id="creer" value="Créer le compte" />
@@ -164,86 +126,15 @@
 
         {#if role === 'entreprise'}
             <form id="creation_compte" onsubmit={submit}>
-                <div class="form-group">
-                    <label for="nom">Appellation <span class="required">*</span></label>
-                    <input type="text" id="nom" placeholder="Nom de l'entreprise"
-                        bind:value={$formEntreprise.nom}
-                        class:input-error={errors.nom || $formEntreprise.errors.nom}
-                    />
-                    <span class="error-message">{errors.nom || $formEntreprise.errors.nom || ''}</span>
-                </div>
-
-                <div class="form-group">
-                    <label for="siret">SIRET <span class="required">*</span></label>
-                    <input type="text" id="siret" placeholder="12345678901234"
-                        bind:value={$formEntreprise.siret}
-                        class:input-error={errors.siret || $formEntreprise.errors.siret}
-                    />
-                    <span class="error-message">{errors.siret || $formEntreprise.errors.siret || ''}</span>
-                </div>
-
-                <div class="form-group form-group-full">
-                    <label for="adresse">Adresse <span class="required">*</span></label>
-                    <input type="text" id="adresse" placeholder="666 rue du diable"
-                        bind:value={$formEntreprise.adresse}
-                        class:input-error={errors.adresse || $formEntreprise.errors.adresse}
-                    />
-                    <span class="error-message">{errors.adresse || $formEntreprise.errors.adresse || ''}</span>
-                </div>
-
-                <div class="form-group">
-                    <label for="code_postal">Code postal <span class="required">*</span></label>
-                    <input type="text" id="code_postal" placeholder="64000"
-                        bind:value={$formEntreprise.code_postal}
-                        class:input-error={errors.code_postal || $formEntreprise.errors.code_postal}
-                    />
-                    <span class="error-message">{errors.code_postal || $formEntreprise.errors.code_postal || ''}</span>
-                </div>
-
-                <div class="form-group">
-                    <label for="ville">Ville <span class="required">*</span></label>
-                    <input type="text" id="ville" placeholder="Pau"
-                        bind:value={$formEntreprise.ville}
-                        class:input-error={errors.ville || $formEntreprise.errors.ville}
-                    />
-                    <span class="error-message">{errors.ville || $formEntreprise.errors.ville || ''}</span>
-                </div>
-
-                <div class="form-group">
-                    <label for="pays">Pays <span class="required">*</span></label>
-                    <input type="text" id="pays" placeholder="France"
-                        bind:value={$formEntreprise.pays}
-                        class:input-error={errors.pays || $formEntreprise.errors.pays}
-                    />
-                    <span class="error-message">{errors.pays || $formEntreprise.errors.pays || ''}</span>
-                </div>
-
-                <div class="form-group">
-                    <label for="num_tel">Téléphone <span class="required">*</span></label>
-                    <input type="tel" id="num_tel" placeholder="06 06 06 06 06"
-                        bind:value={$formEntreprise.num_tel}
-                        class:input-error={errors.num_tel || $formEntreprise.errors.num_tel}
-                    />
-                    <span class="error-message">{errors.num_tel || $formEntreprise.errors.num_tel || ''}</span>
-                </div>
-
-                <div class="form-group form-group-full">
-                    <label for="password">Mot de passe <span class="required">*</span></label>
-                    <input type="password" id="password" placeholder="••••••••"
-                        bind:value={$formEntreprise.password}
-                        class:input-error={errors.password || $formEntreprise.errors.password}
-                    />
-                    <span class="error-message">{errors.password || $formEntreprise.errors.password || ''}</span>
-                </div>
-
-                <div class="form-group form-group-full">
-                    <label for="password_confirmation">Confirmer le mot de passe <span class="required">*</span></label>
-                    <input type="password" id="password_confirmation" placeholder="••••••••"
-                        bind:value={$formEntreprise.password_confirmation}
-                        class:input-error={errors.password_confirmation || $formEntreprise.errors.password_confirmation}
-                    />
-                    <span class="error-message">{errors.password_confirmation || $formEntreprise.errors.password_confirmation || ''}</span>
-                </div>
+                <FormInput id="nom" label="Nom" placeholder="Nom de l'entreprise" required bind:value={$formEntreprise.nom} error={errors.nom || $formEntreprise.errors.nom}></FormInput>
+                <FormInput id="siret" label="SIRET" placeholder="12345678901234" required bind:value={$formEntreprise.siret} error={errors.siret || $formEntreprise.errors.siret}></FormInput>
+                <FormInput id="adresse" isFull label="Adresse" placeholder="15 rue de la paix" required bind:value={$formEntreprise.adresse} error={errors.adresse || $formEntreprise.errors.adresse}></FormInput>
+                <FormInput id="code_postal" label="Code postal" placeholder="64000" required bind:value={$formEntreprise.code_postal} error={errors.code_postal || $formEntreprise.errors.code_postal}></FormInput>
+                <FormInput id="ville"  label="Vile" placeholder="Pau" required bind:value={$formEntreprise.ville} error={errors.ville || $formEntreprise.errors.ville}></FormInput>
+                <FormInput id="pays"  label="Pays" placeholder="France" required bind:value={$formEntreprise.pays} error={errors.pays || $formEntreprise.errors.pays}></FormInput>
+                <FormInput id="num_tel"  label="Téléphone" placeholder="06 00 00 00 00" required bind:value={$formEntreprise.num_tel} error={errors.num_tel || $formEntreprise.errors.num_tel}></FormInput>
+                <FormInput id="password" isFull label="Mot de passe" placeholder="••••••••" required bind:value={$formEntreprise.password} error={errors.password || $formEntreprise.errors.password }></FormInput>
+                <FormInput id="password_confirmation" isFull label="Confirmer le mot de passe" placeholder="••••••••" required bind:value={$formEntreprise.password_confirmation} error={errors.password_confirmation || $formEntreprise.errors.password_confirmation}></FormInput>
 
                 <p class="champ-obligatoire"><span class="required">*</span> Champ obligatoire</p>
                 <input type="submit" id="creer" value="Créer le compte" />
