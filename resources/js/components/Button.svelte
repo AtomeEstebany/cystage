@@ -6,7 +6,8 @@
         children?: Snippet;
         type?: "button" | "submit" | "reset";
         href?: string | null;
-        variant?: "btnBleu" | "btnBlanc" | "btn-ghost" | "btnBleu";
+        variant?: "btnBleu" | "btnBlanc" | "btn-ghost" | "btnBleu" | "btnGreen" | "btnGrey";
+        disabled?: "true" | "false";
         onclick?: (e: MouseEvent) => void;
     }
 
@@ -15,8 +16,8 @@
         type = "button" as "button" | "submit" | "reset",
         href = null,
         variant = "btnBleu", 
-
         onclick = undefined,
+        disabled = false
     } = $props();
 </script>
 
@@ -25,7 +26,7 @@
             {@render children?.()}
         </a>
     {:else}
-        <button {type} {onclick} class="btn {variant}">
+        <button {type} {onclick} class="btn {variant}" {disabled}>
             {@render children?.()}
         </button>
     {/if}
@@ -66,6 +67,17 @@
   box-shadow: 0 28px 52px rgba(37, 99, 235, 0.24);
  }
 
+    .btnBleu:not(:disabled):hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 28px rgba(37, 99, 235, 0.3);
+    }
+
+    .btnBleu:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+    }
+
  .btnBlanc {
   background: var(--surface-0);
   color: var(--ink-900);
@@ -89,8 +101,19 @@
     color: var(--primary-700);
   }
 
+  .btnGreen   { background: #16a34a; color: white; }
 
+  .btnGreen:focus-visible,
+   .btnGrey:focus-visible {
+        outline: 3px solid rgba(37, 99, 235, 0.35);
+        outline-offset: 2px;
+    }
+    
+   .btnGreen:hover   { background: #15803d; transform: translateY(-1px); }
 
+    .btnGrey { background: #f1f5f9; color: #1e293b; border: 1px solid #e2e8f0; }
+
+    .btnGrey:hover { background: #e2e8f0; transform: translateY(-1px); }
   @media (max-width: 768px) {
         .hero {
             width: 100%;

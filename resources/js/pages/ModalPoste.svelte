@@ -1,5 +1,6 @@
 <script lang="ts">
     import { useForm } from '@inertiajs/svelte';
+    import Button from '@/components/Button.svelte';
 
     let { showModalPostuler = $bindable(), offre = $bindable(), etudiant = $bindable()} = $props();
     function disable_modal() {
@@ -137,14 +138,22 @@
                         <span class="erreur">{$form.errors.path}</span>
                     {/if}
                 </div>
-
+                
+                <Button type="submit" variant="btnBleu" disabled={$form.processing}>
+                    {#if $form.processing}
+                        <span class="spinner"></span> Envoi en cours...
+                    {:else}
+                        Envoyer ma candidature →
+                    {/if}
+               </Button>
+                <!--
                 <button type="submit" class="submit" disabled={$form.processing}>
                     {#if $form.processing}
                         <span class="spinner"></span> Envoi en cours...
                     {:else}
                         Envoyer ma candidature →
                     {/if}
-                </button>
+                </button> -->
             </form>
         {/if}
     </div>
@@ -310,36 +319,6 @@
     .file-hint { font-size: 0.78rem; color: #94a3b8; margin: 0.15rem 0 0 0; }
 
     .erreur { color: #ef4444; font-size: 0.8rem; }
-
-    /* Submit */
-    .submit {
-        padding: 0.8rem;
-        background: linear-gradient(135deg, #2563eb, #1d4ed8);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        font-size: 0.95rem;
-        font-weight: 700;
-        cursor: pointer;
-        font-family: inherit;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-    }
-
-    .submit:not(:disabled):hover {
-        transform: translateY(-1px);
-        box-shadow: 0 12px 28px rgba(37, 99, 235, 0.3);
-    }
-
-    .submit:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-        transform: none;
-    }
 
     /* Spinner */
     .spinner {
