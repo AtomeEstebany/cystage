@@ -27,6 +27,7 @@ main {
     align-items: center;    
     justify-content: flex-start; 
     padding: 2rem 1rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 * {

@@ -3,6 +3,7 @@
     import Header from '@/components/Header.svelte';
     import AppHead from '@/components/AppHead.svelte';
     import { useForm } from '@inertiajs/svelte';
+    import Button from '@/components/Button.svelte';
 
     type Profile = {
         nom?: string;
@@ -173,10 +174,10 @@
                                 <input id="company-logo" type="file" accept="image/*" onchange={handleLogo} />
                             </div>
                             {/if}
-                            <button type="submit" class="btn-save">Enregistrer</button>
-                            <button type="button" class="btn-cancel" onclick={() => editing = false}>Annuler</button>
+                            <Button type="submit" variant="btnGreen">Enregistrer</Button>
+                            <Button type="submit" variant="btnGrey" onclick={() => editing = false}>Annuler</Button>
                         {:else}
-                            <button type="button" class="btn-edit" onclick={() => editing = true}>Modifier le profil</button>
+                            <Button onclick={() => editing = true} variant="btnBleu">Modifier le profil</Button>
                         {/if}
                     </div>
                 </form>
@@ -189,6 +190,8 @@
             <EntreprisePostulation />
         {/if}
     </div>
+
+
 </main>
 
 <style>
@@ -317,29 +320,6 @@
         margin-top: 0.5rem;
     }
 
-    .btn-edit, .btn-save, .btn-cancel {
-        padding: 0.6rem 1.25rem;
-        border-radius: 10px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        font-family: inherit;
-        text-decoration: none;
-        display: inline-block;
-        transition: background 0.15s, transform 0.15s;
-    }
-
-    .btn-edit   { background: #2563eb; color: white; }
-    .btn-edit:hover   { background: #1d4ed8; transform: translateY(-1px); }
-    .btn-save   { background: #16a34a; color: white; }
-    .btn-save:hover   { background: #15803d; transform: translateY(-1px); }
-    .btn-cancel { background: #f1f5f9; color: #1e293b; border: 1px solid #e2e8f0; }
-    .btn-cancel:hover { background: #e2e8f0; transform: translateY(-1px); }
-
-    .btn-edit:focus-visible,
-    .btn-save:focus-visible,
-    .btn-cancel:focus-visible,
     .tab:focus-visible,
     .form-group input:focus-visible {
         outline: 3px solid rgba(37, 99, 235, 0.35);

@@ -1,6 +1,7 @@
 <script lang="ts">
     import ModalPoste from "./ModalPoste.svelte";
     import { page } from '@inertiajs/svelte';
+    import Button from '@/components/Button.svelte';
 
     let { offre = $bindable(), entreprise = $bindable(), doms, skills, etudiant = $bindable() } = $props();
 
@@ -109,9 +110,7 @@
         <span class="contact">📞 {entreprise?.num_tel}</span>
 
         {#if user?.role_id == 3}
-            <button class="btn-postuler" onclick={() => showModalPostuler = true}>
-                Postuler →
-            </button>
+            <Button variant="btnBleu" onclick={() => showModalPostuler = true}> Postuler →</Button>
         {/if}
     </div>
 
@@ -123,14 +122,7 @@
 </div>
 
 <style>
-    :global(body) {
-        --primary-700: #1d4ed8;
-        --primary-600: #2563eb;
-        --ink-900: #0f172a;
-        --ink-600: #475569;
-        --border-200: #e2e8f0;
-        font-family: "Plus Jakarta Sans", sans-serif;
-    }
+
 
     .card {
         background: #fff;
